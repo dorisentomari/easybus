@@ -7,13 +7,14 @@
     "常用函数"
   ],
   "scripts": {
-    "eslint": "eslint --fix ./src/**/*.ts",
-    "rollup:build": "cross-env NODE_ENV=production rollup --config rollup.config.js",
     "rollup:dev": "cross-env NODE_ENV=development rollup --config rollup.config.js --watch",
-    "server": "nodemon ./server/app.js",
+    "rollup:build": "cross-env NODE_ENV=production rollup --config rollup.config.js",
     "tsc": "tsc --declaration -p ./ -t es2015 --emitDeclarationOnly --watch",
     "test": "jest",
-    "test-report": "cd lcov-report && hs -o"
+    "test:server": "nodemon ./server/app.js",
+    "test-report": "cd lcov-report && hs -o",
+    "eslint": "eslint --fix ./src/**/*.ts",
+    "docs": "typedoc"
   },
   "repository": {
     "type": "git",
@@ -54,6 +55,7 @@
     "express": "^4.17.1",
     "jest": "^26.2.1",
     "js-doc": "^0.5.0",
+    "jsdoc": "^3.6.6",
     "licia": "^1.23.1",
     "moment": "^2.29.1",
     "rollup": "^2.32.1",
