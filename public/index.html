@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>js-tools</title>
+    <script src="/easybus.umd.js"></script>
+</head>
+<body class="body">
+<h3 id="title"></h3>
+
+<script>
+    window.onload = function () {
+        const title = document.getElementById('title');
+        const has = easybus.hasClassName(document.body, 'body');
+        if (has) {
+            title.innerText = '正常引入工具库';
+            title.style.background = 'green';
+        } else {
+            title.innerText = '没有正常引入工具库';
+            title.style.background = 'red';
+        }
+    }
+</script>
+
+</body>
+</html>
