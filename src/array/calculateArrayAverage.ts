@@ -1,4 +1,4 @@
-import {isNumber} from '../common';
+import {isNumber, isPlainObject} from '../common';
 
 /**
  * calculate number array average;
@@ -21,10 +21,11 @@ import {isNumber} from '../common';
  * ```
  *
  * @param {Array<number>} arr
+ * @param {string} field
  * @returns {number}
  * */
 
-export function calculateArrayAverage(arr: Array<number>): number {
+export function calculateArrayAverage(arr: Array<number> | Array<any>, field?: string): number {
   const len = arr.length;
   if (len === 0) {
     return 0;
@@ -33,6 +34,11 @@ export function calculateArrayAverage(arr: Array<number>): number {
   let sum = arr.reduce((prev, curr) => {
     if (isNumber(curr)) {
       prev += curr;
+    } else if (isPlainObject(curr) && field) {
+      const value = curr[field];
+      if (isNumber(value)) {
+        prev += value;
+      }
     }
     return prev;
   }, 0);

@@ -1,3 +1,5 @@
+export * from './arrayElementsMaxTimes';
+export * from './arrayElementsTimes';
 export * from './arrayify';
 export * from './calculateArrayAverage';
 export * from './calculateArrayMaxValue';
