@@ -1,11 +1,11 @@
 import { DateType } from '../types/date';
+import { breakDateTime } from './breakDateTime';
+import { paddingStart } from '../string';
 
 export function formatTimeToArray(date: DateType = new Date()): Array<string> {
-  let arr: Array<string> = [];
-  const newDate = new Date(date).toTimeString();
-  // @ts-ignore
-  newDate.replace(/^(\d{2}):(\d{2}):(\d{2})/, (_, g1, g2, g3) => {
-    arr = arr.concat([g1, g2, g3]);
-  });
-  return arr;
+  const { hour, minute, second } = breakDateTime(date);
+  let newHour = paddingStart(hour, 2, '0');
+  let newMinute = paddingStart(minute, 2, '0');
+  let newSecond = paddingStart(second, 2, '0');
+  return [newHour, newMinute, newSecond];
 }

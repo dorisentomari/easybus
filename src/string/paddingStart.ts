@@ -1,4 +1,5 @@
-export function paddingStart(value: string, width: number, padding = ' '): string {
+export function paddingStart(value: string | number, width: number, padding = ' '): string {
+  value = String(value);
   if (padding.length > 1) {
     padding = padding[0];
   }

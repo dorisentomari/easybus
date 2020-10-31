@@ -1,13 +1,12 @@
 import { DateType } from '../types/date';
+import { breakDateTime } from './breakDateTime';
+import { paddingStart } from '../string';
 
 export function formatDateToArray(date: DateType = new Date()): Array<string> {
-  const arr: Array<string> = [];
-  const newDate = new Date(date).toLocaleDateString();
-  // @ts-ignore
-  newDate.replace(/\d+/gi, (val) => {
-    val = val.length < 2 ? '0' + val : val;
-    arr.push(val);
-  });
-  arr.push(arr[0].slice(2));
-  return arr;
+  const { year, month, day } = breakDateTime(date);
+  const newYear = String(year);
+  let newMonth = paddingStart(month + 1, 2, '0');
+  let newDay = paddingStart(day, 2, '0');
+  const shortYear = newYear.slice(2);
+  return [newYear, newMonth, newDay, shortYear];
 }

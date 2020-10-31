@@ -99,7 +99,7 @@ describe('测试 date', () => {
     );
   });
 
-  test('测试 diffDateTime', () => {
+  test('测试 formatDateToArray', () => {
     const startTime = '2010-01-02 12:34:45';
     expect(formatDateToArray(startTime)).toEqual(['2010', '01', '02', '10']);
   });

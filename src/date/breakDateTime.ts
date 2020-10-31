@@ -11,6 +11,7 @@ export interface DateFields {
   weekday: number;
 }
 
+// 注意，返回的 month，0 是 1 月。
 export function breakDateTime(date: DateType = new Date()): DateFields {
   date = new Date(date);
   const year = date.getFullYear();
