@@ -1,7 +1,7 @@
 // 把列表通过某个 key 转换成 object
 export function transformListToObject<T>(
   list: Array<T>,
-  key: string | number
+  key: string | number,
 ): Record<string, any> {
   const map: Record<string, any> = {};
   for (let i = 0; i < list.length; i++) {

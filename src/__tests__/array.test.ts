@@ -9,7 +9,7 @@ import {
   findDuplicateElements,
   intersection,
   mergeTwoArray,
-  union
+  union,
 } from '../array';
 
 describe('测试 array', () => {
@@ -18,25 +18,25 @@ describe('测试 array', () => {
     expect(arrayElementsMaxTimes([1, 2, 3])).toEqual([
       { key: '1', times: 1 },
       { key: '2', times: 1 },
-      { key: '3', times: 1 }
+      { key: '3', times: 1 },
     ]);
     expect(arrayElementsMaxTimes([1, 2, 3, 3])).toEqual([{ key: '3', times: 2 }]);
     expect(arrayElementsMaxTimes([1, 2, 3, 3, 4, 4])).toEqual([
       { key: '3', times: 2 },
-      { key: '4', times: 2 }
+      { key: '4', times: 2 },
     ]);
     expect(arrayElementsMaxTimes([1, 2, 3, 3, 4, 4], true)).toEqual({
       key: '3',
-      times: 2
+      times: 2,
     });
     expect(arrayElementsMaxTimes([1, 2, 7, 7, 7, 3, 3, 4, 4])).toEqual([{ key: '7', times: 3 }]);
     expect(arrayElementsMaxTimes([1, 2, 7, 7, 7, 3, 3, 4, 4], true)).toEqual({
       key: '7',
-      times: 3
+      times: 3,
     });
     expect(arrayElementsMaxTimes([1, 2, 7, 7, 7, 3, 3, 4, 4, 8, 8, 8, 8], true)).toEqual({
       key: '8',
-      times: 4
+      times: 4,
     });
   });
 
@@ -45,21 +45,21 @@ describe('测试 array', () => {
     expect(arrayElementsTimes([1, 2, 3])).toEqual({
       '1': 1,
       '2': 1,
-      '3': 1
+      '3': 1,
     });
     expect(arrayElementsTimes([1, 2, 3, 3])).toEqual({
       '1': 1,
       '2': 1,
-      '3': 2
+      '3': 2,
     });
     expect(arrayElementsTimes([1, 2, 3, 3, 4, 4])).toEqual({
       '1': 1,
       '2': 1,
       '3': 2,
-      '4': 2
+      '4': 2,
     });
     expect(
-      arrayElementsTimes([1, 2, 3, 3, 4, 4, undefined, null, null, {}, {}, [], [], []])
+      arrayElementsTimes([1, 2, 3, 3, 4, 4, undefined, null, null, {}, {}, [], [], []]),
     ).toEqual({
       '1': 1,
       '2': 1,
@@ -68,7 +68,7 @@ describe('测试 array', () => {
       undefined: 1,
       null: 2,
       '{}': 2,
-      '[]': 3
+      '[]': 3,
     });
   });
 
@@ -85,10 +85,10 @@ describe('测试 array', () => {
         [
           { id: 1, age: 18 },
           { id: 2, age: 22 },
-          { id: 3, age: 20 }
+          { id: 3, age: 20 },
         ],
-        'age'
-      )
+        'age',
+      ),
     ).toEqual(20);
   });
 

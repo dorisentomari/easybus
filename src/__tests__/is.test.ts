@@ -28,7 +28,7 @@ import {
   isHTMLElement,
   isBrowser,
   isNode,
-  isLeapYear
+  isLeapYear,
 } from '../common';
 
 interface IIsMockData {
@@ -55,8 +55,8 @@ export const isMockData: IIsMockData = {
       { value: true, result: true },
       { value: false, result: true },
       { value: !'', result: true },
-      { value: !!'', result: true }
-    ]
+      { value: !!'', result: true },
+    ],
   },
   isNumber: {
     method: isNumber,
@@ -74,8 +74,8 @@ export const isMockData: IIsMockData = {
       { value: new Map(), result: false },
       { value: new WeakMap(), result: false },
       { value: true, result: false },
-      { value: false, result: false }
-    ]
+      { value: false, result: false },
+    ],
   },
   isString: {
     method: isString,
@@ -92,8 +92,8 @@ export const isMockData: IIsMockData = {
       { value: new Map(), result: false },
       { value: new WeakMap(), result: false },
       { value: true, result: false },
-      { value: false, result: false }
-    ]
+      { value: false, result: false },
+    ],
   },
   isUndefined: {
     method: isUndefined,
@@ -111,8 +111,8 @@ export const isMockData: IIsMockData = {
       { value: new Map(), result: false },
       { value: new WeakMap(), result: false },
       { value: true, result: false },
-      { value: false, result: false }
-    ]
+      { value: false, result: false },
+    ],
   },
   isNull: {
     method: isNull,
@@ -129,8 +129,8 @@ export const isMockData: IIsMockData = {
       { value: new Map(), result: false },
       { value: new WeakMap(), result: false },
       { value: true, result: false },
-      { value: false, result: false }
-    ]
+      { value: false, result: false },
+    ],
   },
   isSymbol: {
     method: isSymbol,
@@ -149,8 +149,8 @@ export const isMockData: IIsMockData = {
       { value: new Map(), result: false },
       { value: new WeakMap(), result: false },
       { value: true, result: false },
-      { value: false, result: false }
-    ]
+      { value: false, result: false },
+    ],
   },
   isNaN: {
     method: isNaN,
@@ -163,46 +163,46 @@ export const isMockData: IIsMockData = {
       { value: 10 / 'a', result: true },
       // @ts-ignore
       { value: 'a' / 10, result: true },
-      { value: 10 / 2, result: false }
-    ]
+      { value: 10 / 2, result: false },
+    ],
   },
   isInt: {
     method: isInt,
     data: [
       { value: 100.0, result: true },
       { value: 100.0, result: true },
-      { value: 100.1, result: false }
-    ]
+      { value: 100.1, result: false },
+    ],
   },
   isEven: {
     method: isEven,
     data: [
       { value: 1, result: false },
-      { value: 2, result: true }
-    ]
+      { value: 2, result: true },
+    ],
   },
   isOdd: {
     method: isOdd,
     data: [
       { value: 1, result: true },
-      { value: 2, result: false }
-    ]
+      { value: 2, result: false },
+    ],
   },
   isPositiveNumber: {
     method: isPositiveNumber,
     data: [
       { value: 1, result: true },
       { value: 0, result: false },
-      { value: -1, result: false }
-    ]
+      { value: -1, result: false },
+    ],
   },
   isNegativeNumber: {
     method: isNegativeNumber,
     data: [
       { value: 1, result: false },
       { value: 0, result: false },
-      { value: -1, result: true }
-    ]
+      { value: -1, result: true },
+    ],
   },
   isBaseType: {
     method: isBaseType,
@@ -225,8 +225,8 @@ export const isMockData: IIsMockData = {
       { value: new Date(), result: false },
       { value: new RegExp(''), result: false },
       { value: new Function(), result: false },
-      { value: new Error(), result: false }
-    ]
+      { value: new Error(), result: false },
+    ],
   },
   isMap: {
     method: isMap,
@@ -244,8 +244,8 @@ export const isMockData: IIsMockData = {
       { value: true, result: false },
       { value: false, result: false },
       { value: !'', result: false },
-      { value: !!'', result: false }
-    ]
+      { value: !!'', result: false },
+    ],
   },
   isWeakMap: {
     method: isWeakMap,
@@ -263,8 +263,8 @@ export const isMockData: IIsMockData = {
       { value: true, result: false },
       { value: false, result: false },
       { value: !'', result: false },
-      { value: !!'', result: false }
-    ]
+      { value: !!'', result: false },
+    ],
   },
   isSet: {
     method: isSet,
@@ -282,8 +282,8 @@ export const isMockData: IIsMockData = {
       { value: true, result: false },
       { value: false, result: false },
       { value: !'', result: false },
-      { value: !!'', result: false }
-    ]
+      { value: !!'', result: false },
+    ],
   },
   isWeakSet: {
     method: isWeakSet,
@@ -301,8 +301,8 @@ export const isMockData: IIsMockData = {
       { value: true, result: false },
       { value: false, result: false },
       { value: !'', result: false },
-      { value: !!'', result: false }
-    ]
+      { value: !!'', result: false },
+    ],
   },
   isArray: {
     method: isArray,
@@ -321,8 +321,8 @@ export const isMockData: IIsMockData = {
       { value: true, result: false },
       { value: false, result: false },
       { value: !'', result: false },
-      { value: !!'', result: false }
-    ]
+      { value: !!'', result: false },
+    ],
   },
   isEmptyArray: {
     method: isEmptyArray,
@@ -341,8 +341,8 @@ export const isMockData: IIsMockData = {
       { value: true, result: false },
       { value: false, result: false },
       { value: !'', result: false },
-      { value: !!'', result: false }
-    ]
+      { value: !!'', result: false },
+    ],
   },
   isPlainObject: {
     method: isPlainObject,
@@ -361,8 +361,8 @@ export const isMockData: IIsMockData = {
       { value: true, result: false },
       { value: false, result: false },
       { value: !'', result: false },
-      { value: !!'', result: false }
-    ]
+      { value: !!'', result: false },
+    ],
   },
   isEmptyObject: {
     method: isEmptyObject,
@@ -381,8 +381,8 @@ export const isMockData: IIsMockData = {
       { value: true, result: false },
       { value: false, result: false },
       { value: !'', result: false },
-      { value: !!'', result: false }
-    ]
+      { value: !!'', result: false },
+    ],
   },
   isObject: {
     method: isObject,
@@ -399,8 +399,8 @@ export const isMockData: IIsMockData = {
       { value: new Map(), result: true },
       { value: new WeakMap(), result: true },
       { value: true, result: false },
-      { value: false, result: false }
-    ]
+      { value: false, result: false },
+    ],
   },
   isDate: {
     method: isDate,
@@ -418,8 +418,8 @@ export const isMockData: IIsMockData = {
       { value: new WeakMap(), result: false },
       { value: new Date(), result: true },
       { value: true, result: false },
-      { value: false, result: false }
-    ]
+      { value: false, result: false },
+    ],
   },
   isValidDate: {
     method: isValidDate,
@@ -438,8 +438,8 @@ export const isMockData: IIsMockData = {
       { value: new Date('2020-10-27'), result: true },
       { value: 'xxxxx', result: false },
       { value: true, result: true },
-      { value: false, result: true }
-    ]
+      { value: false, result: true },
+    ],
   },
   isFunction: {
     method: isFunction,
@@ -459,8 +459,8 @@ export const isMockData: IIsMockData = {
       { value: true, result: false },
       { value: false, result: false },
       { value: () => {}, result: true },
-      { value: function a() {}, result: true }
-    ]
+      { value: function a() {}, result: true },
+    ],
   },
   isError: {
     method: isError,
@@ -481,8 +481,8 @@ export const isMockData: IIsMockData = {
       { value: false, result: false },
       { value: () => {}, result: false },
       { value: function a() {}, result: false },
-      { value: new Error(), result: true }
-    ]
+      { value: new Error(), result: true },
+    ],
   },
   isLeapYear: {
     method: isLeapYear,
@@ -492,8 +492,8 @@ export const isMockData: IIsMockData = {
       { value: 1800, result: false },
       { value: 1804, result: true },
       { value: 2004, result: true },
-      { value: new Date(), result: false }
-    ]
+      { value: new Date(), result: false },
+    ],
   },
   isHTMLElement: {
     method: isHTMLElement,
@@ -515,9 +515,9 @@ export const isMockData: IIsMockData = {
       { value: false, result: false },
       { value: () => {}, result: false },
       { value: function a() {}, result: false },
-      { value: new Error(), result: false }
-    ]
-  }
+      { value: new Error(), result: false },
+    ],
+  },
 };
 
 describe('测试 common', () => {

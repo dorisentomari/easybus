@@ -18,7 +18,7 @@ function formatURLPathParam(url: string, obj: IBasicTypeObject = {}) {
 export function buildURL(
   url: string,
   queryParams?: IBasicTypeObject,
-  pathParams?: IBasicTypeObject
+  pathParams?: IBasicTypeObject,
 ): string {
   if (!queryParams) {
     return url;

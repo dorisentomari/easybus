@@ -6,7 +6,7 @@ import { formatTimeToCn } from './formatTimeToCn';
 
 export function formatDateTime(
   date: DateType = new Date(),
-  dateTimeOptions: IFormatDatetimeOptions = {}
+  dateTimeOptions: IFormatDatetimeOptions = {},
 ): string {
   const { needCn } = dateTimeOptions;
   if (needCn) {

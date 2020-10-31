@@ -13,7 +13,7 @@
     "test": "jest",
     "test:server": "nodemon ./server/app.js",
     "test-report": "cd lcov-report && hs -o",
-    "eslint": "eslint --fix ./src/**/*.ts",
+    "eslint": "eslint --fix ./src/**/*.ts ./scripts/**.js",
     "docs": "typedoc --options ./scripts/typedocs.js"
   },
   "repository": {

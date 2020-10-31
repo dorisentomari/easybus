@@ -39,7 +39,7 @@ function xhr(config: AjaxRequestConfig): AjaxPromise {
         statusText: request.statusText,
         headers: responseHeaders,
         request,
-        config
+        config,
       };
       handleResponse(response);
     };
@@ -66,8 +66,8 @@ function xhr(config: AjaxRequestConfig): AjaxPromise {
             config,
             'ECONNABORTED',
             request,
-            response
-          )
+            response,
+          ),
         );
       }
     }

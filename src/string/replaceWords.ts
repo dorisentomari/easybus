@@ -3,7 +3,7 @@ export function replaceWords(
   key = '',
   value,
   leftMark = '\\{',
-  rightMark = '\\}'
+  rightMark = '\\}',
 ): string {
   return str.replace(new RegExp(leftMark + key + rightMark, 'gm'), value);
 }

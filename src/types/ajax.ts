@@ -66,7 +66,7 @@ export class AjaxError extends Error {
     config: AjaxRequestConfig,
     code?: string | null,
     request?: any,
-    response?: AjaxResponse
+    response?: AjaxResponse,
   ) {
     super(message);
     this.config = config;
@@ -82,7 +82,7 @@ export function createError(
   config: AjaxRequestConfig,
   code?: string | null,
   request?: any,
-  response?: AjaxResponse
+  response?: AjaxResponse,
 ) {
   return new AjaxError(message, config, code, request, response);
 }

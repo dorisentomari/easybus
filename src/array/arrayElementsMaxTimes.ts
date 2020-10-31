@@ -7,7 +7,7 @@ interface ReturnMaxTimesItem {
 
 export function arrayElementsMaxTimes(
   arr: Array<number>,
-  onlyOne: boolean = false
+  onlyOne: boolean = false,
 ): ReturnMaxTimesItem | Array<ReturnMaxTimesItem> {
   const map = arrayElementsTimes(arr);
   const keys = Object.keys(map);

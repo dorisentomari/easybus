@@ -25,7 +25,7 @@ export function jsonp(options: JsonpOptions) {
 
       params = {
         ...params,
-        callback
+        callback,
       };
       let str = '';
       for (const key in params) {

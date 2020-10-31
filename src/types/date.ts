@@ -8,7 +8,7 @@ export enum DateTypeEnum {
   MINUTES,
   SECONDS,
   MILLISECONDS,
-  WEEK
+  WEEK,
 }
 
 export interface IFormatDatetimeOptions {
@@ -47,7 +47,7 @@ export enum MonthEngToNum {
   SEP = 9,
   OCT = 10,
   NOV = 11,
-  DEC = 12
+  DEC = 12,
 }
 
 export enum WeekEngToNum {
@@ -64,7 +64,7 @@ export enum WeekEngToNum {
   THU = 4,
   FRI = 5,
   SAT = 6,
-  SUN = 7
+  SUN = 7,
 }
 
 export const MONTH_DAYS = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31, 29];

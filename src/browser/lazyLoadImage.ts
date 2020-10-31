@@ -1,7 +1,7 @@
 export function lazyLoadImage(
   images: Array<HTMLImageElement>,
   defaultSrc: string,
-  dataSrc: string
+  dataSrc: string,
 ) {
   const len = images.length;
   const n = 0;

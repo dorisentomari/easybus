@@ -6,15 +6,15 @@ import { isNumber } from '../common';
 export function addDateTime(
   startDate: DateType = new Date(),
   unit: DateTypeEnum = DateTypeEnum.DAYS,
-  value: number = 0
+  value: number = 0,
 ): DateType {
   const { year, month, day, hour, minute, second, milliseconds } = breakDateTime(
-    new Date(startDate)
+    new Date(startDate),
   );
 
   if (!isNumber(value)) {
     throw new TypeError(
-      `addDateTime: expect \`value\` ${value} is number, but got ${typeof value}`
+      `addDateTime: expect \`value\` ${value} is number, but got ${typeof value}`,
     );
   }
 

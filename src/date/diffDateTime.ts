@@ -4,7 +4,7 @@ import { intDiv } from '../number';
 export function diffDateTime(
   startDate: DateType,
   endDate: DateType,
-  mode: DateTypeEnum = DateTypeEnum.DAYS
+  mode: DateTypeEnum = DateTypeEnum.DAYS,
 ): number {
   startDate = new Date(startDate);
   endDate = new Date(endDate);
