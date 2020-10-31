@@ -7,14 +7,29 @@
     "常用函数"
   ],
   "scripts": {
-    "rollup:dev": "cross-env NODE_ENV=development rollup --config rollup.config.js --watch",
-    "rollup:build": "cross-env NODE_ENV=production rollup --config rollup.config.js",
-    "tsc": "tsc --declaration -p ./ -t es2015 --emitDeclarationOnly --watch",
+    "dev:rollup": "cross-env NODE_ENV=development rollup --config rollup.config.js --watch",
+    "dev:tsc": "tsc --declaration -p ./ -t es2015 --emitDeclarationOnly --watch",
+    "dev:test:server": "nodemon ./server/app.js",
+    "dev:test:report": "cd lcov-report && hs -o",
+    "dev:task": "",
+    "build:rollup": "cross-env NODE_ENV=production rollup --config rollup.config.js",
+    "build:tsc": "tsc --declaration -p ./ -t es2015 --emitDeclarationOnly",
+    "build:docs": "typedoc --options ./scripts/typedocs.js",
+    "build:task": "node ./scripts/task.js",
+    "build:eslint": "eslint --fix ./src/**/*.ts ./scripts/**.js ./dist/**/*.d.ts",
+    "clean:dist": "rimraf ./dist",
+    "clean:docs": "rimraf ./docs",
+    "clean:jest-report": "rimraf lcov-report && rimraf clover.xml && rimraf coverage-final.json && rimraf lcov.info",
+    "clean": "npm-run-all --parallel clean:**",
     "test": "jest",
-    "test:server": "nodemon ./server/app.js",
-    "test-report": "cd lcov-report && hs -o",
-    "eslint": "eslint --fix ./src/**/*.ts ./scripts/**.js",
-    "docs": "typedoc --options ./scripts/typedocs.js"
+    "action:pre-commit": "npm-run-all --serial build:**",
+    "action:pre-push": "npm run test"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run action:pre-commit",
+      "pre-push": "npm run action:pre-push"
+    }
   },
   "repository": {
     "type": "git",
@@ -59,6 +74,7 @@
     "eslint-plugin-prettier": "^3.1.4",
     "eslint-plugin-standard": "^4.0.2",
     "express": "^4.17.1",
+    "husky": "^4.3.0",
     "is-browser": "^2.1.0",
     "jest": "^26.6.1",
     "js-doc": "^0.5.0",
@@ -66,7 +82,9 @@
     "jsdom": "^16.4.0",
     "licia": "^1.23.1",
     "moment": "^2.29.1",
+    "npm-run-all": "^4.1.5",
     "prettier": "^2.1.2",
+    "rimraf": "^3.0.2",
     "rollup": "^2.32.1",
     "rollup-plugin-babel": "^4.4.0",
     "rollup-plugin-commonjs": "^10.1.0",

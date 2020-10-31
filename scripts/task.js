@@ -3,6 +3,10 @@ const path = require('path');
 const helper = require('./helper');
 
 class Task {
+  init() {
+    this.generateTypeDocConfigYml();
+  }
+
   generateTypeDocConfigYml() {
     const content = 'theme: jekyll-theme-cayman\ninclude:\n  - "_*_.html"\n  - "_*_.*.html"';
     const filePath = path.resolve(__dirname, '../docs/_config.yml');
@@ -24,4 +28,5 @@ class Task {
   }
 }
 
-module.exports = Task;
+const task = new Task();
+task.init();
