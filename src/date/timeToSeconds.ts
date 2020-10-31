@@ -1,5 +1,5 @@
 // 转换时间 18:25:30 为当天的秒数
-import {parseToNumber} from '../number';
+import { parseToNumber } from '../number';
 
 export function timeToSeconds(time: string, mark: string = ':') {
   const timeArray = time.split(mark);

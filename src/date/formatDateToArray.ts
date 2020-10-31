@@ -1,10 +1,10 @@
-import {DateType} from '../types/date';
+import { DateType } from '../types/date';
 
-export function formatDateToArray(date:DateType = new Date()): Array<string> {
+export function formatDateToArray(date: DateType = new Date()): Array<string> {
   const arr: Array<string> = [];
   const newDate = new Date(date).toLocaleDateString();
   // @ts-ignore
-  newDate.replace(/\d+/ig, val => {
+  newDate.replace(/\d+/gi, (val) => {
     val = val.length < 2 ? '0' + val : val;
     arr.push(val);
   });

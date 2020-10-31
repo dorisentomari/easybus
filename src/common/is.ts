@@ -50,9 +50,9 @@ export function isNegativeNumber(value: any) {
 }
 
 export function isBaseType(value: any) {
-  let methods = [isNumber, isString, isBoolean, isUndefined, isNull, isSymbol];
+  const methods = [isNumber, isString, isBoolean, isUndefined, isNull, isSymbol];
   for (let i = 0; i < methods.length; i++) {
-    let method = methods[i];
+    const method = methods[i];
     if (method(value)) {
       return true;
     }
@@ -130,12 +130,17 @@ export function isHTMLElement(element: any) {
 
 export function isBrowser() {
   try {
-    return typeof window === 'object' &&
-    typeof document === 'object' &&
-    document.nodeType === 9;
+    return typeof window === 'object' && typeof document === 'object' && document.nodeType === 9;
   } catch (err) {
     return false;
   }
+}
+
+export function isNode() {
+  return (
+    Object.prototype.toString.call(typeof process !== 'undefined' ? process : 0) ===
+    '[object process]'
+  );
 }
 
 export function isLeapYear(year: number) {
@@ -144,4 +149,3 @@ export function isLeapYear(year: number) {
   }
   return year % 400 === 0 || (year % 4 === 0 && year % 100 !== 0);
 }
-

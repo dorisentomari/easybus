@@ -1,4 +1,4 @@
-import {DateType} from '../types/date';
+import { DateType } from '../types/date';
 
 export interface DateFields {
   year: number;
@@ -11,11 +11,11 @@ export interface DateFields {
   weekday: number;
 }
 
-export function breakDateTime(date: DateType = new Date()) :DateFields {
+export function breakDateTime(date: DateType = new Date()): DateFields {
   date = new Date(date);
   const year = date.getFullYear();
   const month = date.getMonth();
-  const day = date.getDay();
+  const day = date.getDate();
   const hour = date.getHours();
   const minute = date.getMinutes();
   const second = date.getSeconds();

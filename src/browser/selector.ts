@@ -3,7 +3,7 @@ export function $selector(selector: string) {
     return null;
   }
 
-  let type = selector.substring(0, 1);
+  const type = selector.substring(0, 1);
   if (type === '#') {
     if (document.querySelector) {
       return document.querySelector(selector);
@@ -19,5 +19,4 @@ export function $selector(selector: string) {
     }
     return document.getElementsByTagName(selector);
   }
-
 }

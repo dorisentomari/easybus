@@ -120,7 +120,5 @@ lib
 build/
 lib/
 .eslintrc.js
-
-./lib
 jest.config.js
 rollup.config.js

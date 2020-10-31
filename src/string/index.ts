@@ -9,4 +9,3 @@ export * from './replaceWords';
 export * from './trim';
 export * from './trimLeft';
 export * from './trimRight';
-export * from './uuid';

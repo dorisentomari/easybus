@@ -6,7 +6,7 @@ export function findDuplicateElements<T>(arr: Array<T>): Array<T> {
 
   const map: Record<any, any> = {};
 
-  let repeatSet = new Set<T>();
+  const repeatSet = new Set<T>();
 
   for (let i = 0; i < arr.length; i++) {
     const item = String(arr[i]);

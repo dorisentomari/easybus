@@ -1,7 +1,7 @@
 const express = require('express');
 const route = express.Router();
 
-route.get('/api/jsonp', (req, res) => {
+route.get('/jsonp', (req, res) => {
   const {callback} = req.query;
   const data = {
     name: 'jsonp',
@@ -11,19 +11,19 @@ route.get('/api/jsonp', (req, res) => {
   res.end(`${callback}('${JSON.stringify(data)}')`);
 });
 
-route.get('/api/user', (req, res) => {
+route.get('/user', (req, res) => {
   console.log('req.query');
   console.log(req.query);
   res.json({user: 'jack'});
 });
 
-route.post('/api/user', (req, res) => {
+route.post('/user', (req, res) => {
   console.log('req.query');
   console.log(req.query);
   res.json({user: 'jack', method: 'post'});
 });
 
-route.get('/api/set-header', (req, res) => {
+route.get('/set-header', (req, res) => {
   let headers = req.headers;
   let xJsUtilsKey = 'x-js-utils';
   let xJsUtilsValue = headers[xJsUtilsKey];
@@ -34,19 +34,25 @@ route.get('/api/set-header', (req, res) => {
   }
 });
 
-route.get('/api/set-content-type', (req, res) => {
+route.get('/set-content-type', (req, res) => {
   let headers = req.headers;
   let contentType = headers['content-type'];
   res.setHeader('content-type', contentType);
   res.json({status: true});
 });
 
-route.get('/api/set-response-type', (req, res) => {
+route.get('/set-response-type', (req, res) => {
   let headers = req.headers;
   let responseType = headers['response-type'];
   res.setHeader('response-type', responseType);
   res.json({status: true});
 });
+
+route.get('/get-http-header', (req, res) => {
+  console.log(req);
+  return res.json();
+});
+
 
 module.exports = route;
 

@@ -16,7 +16,7 @@ app.all('*', function (req, res, next) {
   }
 });
 
-app.use('/', apiRoute);
+app.use('/api', apiRoute);
 
 app.listen(PORT, err => {
   if (err) {

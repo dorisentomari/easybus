@@ -1,6 +1,6 @@
-import {DateType, DateTypeEnum} from '../types/date';
-import {breakDateTime} from './breakDateTime';
-import {diffDateTime} from './diffDateTime';
+import { DateType, DateTypeEnum } from '../types/date';
+import { breakDateTime } from './breakDateTime';
+import { diffDateTime } from './diffDateTime';
 
 // 某年有多少天
 export function getDaysInYear(date: DateType = new Date()) {

@@ -1,13 +1,22 @@
 export type Method =
-  | 'get' | 'GET'
-  | 'delete' | 'DELETE'
-  | 'head' | 'HEAD'
-  | 'options' | 'OPTIONS'
-  | 'post' | 'POST'
-  | 'put' | 'PUT'
-  | 'patch' | 'PATCH'
-  | 'link' | 'LINK'
-  | 'unlink' | 'UNLINK'
+  | 'get'
+  | 'GET'
+  | 'delete'
+  | 'DELETE'
+  | 'head'
+  | 'HEAD'
+  | 'options'
+  | 'OPTIONS'
+  | 'post'
+  | 'POST'
+  | 'put'
+  | 'PUT'
+  | 'patch'
+  | 'PATCH'
+  | 'link'
+  | 'LINK'
+  | 'unlink'
+  | 'UNLINK';
 
 export interface AjaxRequestConfig {
   url: string;
@@ -28,8 +37,7 @@ export interface AjaxResponse<T = any> {
   request: any;
 }
 
-export interface AjaxPromise<T = any> extends Promise<AjaxResponse<T>> {
-}
+export interface AjaxPromise<T = any> extends Promise<AjaxResponse<T>> {}
 
 export interface Ajax {
   get<T = any>(url: string, config?: AjaxRequestConfig): AjaxPromise<T>;

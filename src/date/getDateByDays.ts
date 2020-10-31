@@ -1,5 +1,4 @@
-import {MONTH_DAYS, MONTH_NUMBER} from '../types/date';
-
+import { MONTH_DAYS, MONTH_NUMBER } from '../types/date';
 
 export function getDateByDays(days: number) {
   let currentDays = 0;
@@ -11,5 +10,4 @@ export function getDateByDays(days: number) {
     }
   }
   console.log('currentDays', currentDays);
-
 }

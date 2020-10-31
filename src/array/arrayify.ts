@@ -1,4 +1,4 @@
-import {isArray} from '../common';
+import { isArray } from '../common';
 
 /**
  * arrayify value, if value is array, return `value`. if value is not array, return `[value]`;
@@ -19,7 +19,7 @@ import {isArray} from '../common';
  * @returns  {Array}
  * */
 
-export function arrayify(value: Array<any> | any) : Array<any> {
+export function arrayify(value: Array<any> | any): Array<any> {
   if (isArray(value)) {
     return value;
   }

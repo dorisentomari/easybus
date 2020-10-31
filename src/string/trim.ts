@@ -1,5 +1,5 @@
-import {trimLeft} from './trimLeft';
-import {trimRight} from './trimRight';
+import { trimLeft } from './trimLeft';
+import { trimRight } from './trimRight';
 
 export function trim(val: string, isTrimLeft: boolean = true, isTrimRight: boolean = true): string {
   if (isTrimLeft) {

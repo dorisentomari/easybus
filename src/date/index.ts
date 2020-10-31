@@ -1,3 +1,5 @@
+export * from './addDateTime';
+export * from './breakDateTime';
 export * from './diffDateTime';
 export * from './formatDate';
 export * from './formatDateTime';

@@ -1,5 +1,5 @@
-import {IBasicTypeObject} from '../types/common';
-import {encodeUrl} from './encodeUrl';
+import { IBasicTypeObject } from '../types/common';
+import { encodeUrl } from './encodeUrl';
 
 export function convertObjToURLString(obj: IBasicTypeObject) {
   let str = '';
@@ -15,5 +15,5 @@ export function convertObjToURLString(obj: IBasicTypeObject) {
       }
     }
   }
-  return str.slice(0, str.length -1);
+  return str.slice(0, str.length - 1);
 }

@@ -1,6 +1,6 @@
-import {replaceWords} from './replaceWords';
-import {IBasicTypeObject} from '../types/common';
-import {convertObjToURLString} from './convertObjToURLString';
+import { replaceWords } from './replaceWords';
+import { IBasicTypeObject } from '../types/common';
+import { convertObjToURLString } from './convertObjToURLString';
 
 function formatURLPathParam(url: string, obj: IBasicTypeObject = {}) {
   if (Object.keys(obj).length === 0) {
@@ -15,7 +15,11 @@ function formatURLPathParam(url: string, obj: IBasicTypeObject = {}) {
   return url;
 }
 
-export function buildURL(url: string, queryParams?: IBasicTypeObject, pathParams?: IBasicTypeObject): string {
+export function buildURL(
+  url: string,
+  queryParams?: IBasicTypeObject,
+  pathParams?: IBasicTypeObject
+): string {
   if (!queryParams) {
     return url;
   }

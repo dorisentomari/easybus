@@ -1,7 +1,7 @@
 export const phoneRegexp = /^1\d{10}$/g;
 
-export function isPhone(email: string) {
-  return phoneRegexp.test(email);
+export function isPhone(phone: any) {
+  return phoneRegexp.test(phone);
 }
 
 export const emailRegexp = /^[0-9a-zA-Z]+@[0-9a-zA-Z\-]+\.[0-9a-zA-Z]+/;

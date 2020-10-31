@@ -2,7 +2,7 @@ export function generateImageDom(file: File, attributes: Record<string, string> 
   const url = window.URL.createObjectURL(file);
   let otherAttributes = '';
 
-  for (let key in attributes) {
+  for (const key in attributes) {
     if (attributes.hasOwnProperty(key)) {
       otherAttributes += `${key}=${attributes[key]} `;
     }

@@ -132,7 +132,9 @@ function parseHttpHeaders(headers) {
     if (!headers) {
         return parsed;
     }
-    headers.split('\r\n').forEach(function (line) {
+    var lines = headers.trim().split('\r\n');
+    console.log(lines);
+    headers.trim().split('\r\n').forEach(function (line) {
         var _a = line.split(':'), key = _a[0], value = _a[1];
         key = key.trim().toLowerCase();
         if (!key) {
@@ -399,26 +401,140 @@ function promisify(func) {
     };
 }
 
-function arrayify(val) {
-    if (isArray(val)) {
-        return val;
+function arrayElementsTimes(arr) {
+    var map = {};
+    for (var i = 0; i < arr.length; i++) {
+        var item = arr[i];
+        if (!isBaseType(item)) {
+            item = JSON.stringify(item);
+        }
+        if (map[item]) {
+            map[item] = map[item] + 1;
+        }
+        else {
+            map[item] = 1;
+        }
     }
-    return [val];
+    return map;
 }
 
-function calculateArrayAverage(arr) {
+function arrayElementsMaxTimes(arr, onlyOne) {
+    if (onlyOne === void 0) { onlyOne = false; }
+    var map = arrayElementsTimes(arr);
+    var keys = Object.keys(map);
+    var length = keys.length;
+    var result = [];
+    var maxTimes = 0;
+    for (var i = 0; i < length; i++) {
+        var key = keys[i];
+        var times = map[key];
+        if (times > maxTimes) {
+            maxTimes = times;
+            result = [{ key: key, times: times }];
+        }
+        else if (times === maxTimes) {
+            result.push({ key: key, times: times });
+        }
+    }
+    return onlyOne ? result[0] : result;
+}
+
+/**
+ * arrayify value, if value is array, return `value`. if value is not array, return `[value]`;
+ *
+ * ```typescript
+ * // eg. 1
+ * let value = 1;
+ * value = arrayify(value);
+ * // now value is `[1]`;
+ *
+ * // eg. 2
+ * let value = [1];
+ * value = arrayify(value);
+ * // now value is `[1]`;
+ * ```
+ *
+ * @param {Array|any} value
+ * @returns  {Array}
+ * */
+function arrayify(value) {
+    if (isArray(value)) {
+        return value;
+    }
+    return [value];
+}
+
+/**
+ * calculate number array average;
+ *
+ * @remark arr element must be number type, not allow string number like '3';
+ *
+ *
+ * ```typescript
+ * // eg. 1
+ * let average = calculateArrayAverage([]);
+ * // now average is `0`;
+ *
+ * // eg. 2
+ * let average = calculateArrayAverage([1, 2, 3, 4, 5]);
+ * // now average is `3`;
+ *
+ * // eg. 3
+ * let average = calculateArrayAverage([1, 2, 3, 4, 5, '6', null, undefined, 'a', [], {}]);
+ * // now average is `3`;
+ * ```
+ *
+ * @param {Array<number>} arr
+ * @param {string} field
+ * @returns {number}
+ * */
+function calculateArrayAverage(arr, field) {
     var len = arr.length;
     if (len === 0) {
         return 0;
     }
-    var sum = 0;
-    arr.reduce(function (prev, curr) {
-        sum = prev + curr;
-        return sum;
-    });
+    var sum = arr.reduce(function (prev, curr) {
+        if (isNumber(curr)) {
+            prev += curr;
+        }
+        else if (isPlainObject(curr) && field) {
+            var value = curr[field];
+            if (isNumber(value)) {
+                prev += value;
+            }
+        }
+        return prev;
+    }, 0);
     return sum / len;
 }
 
+/**
+ * calculate array element max value element;
+ *
+ * @remark use JavaScript's `Math.max` method; if one element is string number like `'44'`, it regard `'44'` as number 44 and work; But if one element is `'a'` or `undefined` or `object`, you will get `NaN`;
+ *
+ *
+ * ```typescript
+ * // eg. 1
+ * let maxValue = calculateArrayMaxValue([]);
+ * // now maxValue is `0`;
+ *
+ * // eg. 2
+ * let maxValue = calculateArrayMaxValue([1, 2, 3, 4, 5]);
+ * // now maxValue is `5`;
+ *
+ * // eg. 3
+ * let maxValue = calculateArrayMaxValue([1, 2, 3, 4, 5, '8', 10]);
+ * // now maxValue is `10`;
+ *
+ * // eg. 4
+ * let maxValue = calculateArrayMaxValue([1, 2, 3, 4, 5, 'a', 10]);
+ * // now maxValue is `NaN`;
+ * ```
+ *
+ * @param {Array<number>} arr
+ * @returns {number}
+ * */
 function calculateArrayMaxValue(arr) {
     if (arr.length === 0) {
         return 0;
@@ -426,6 +542,33 @@ function calculateArrayMaxValue(arr) {
     return Math.max.apply(Math, arr);
 }
 
+/**
+ * calculate array element min value element;
+ *
+ * @remark use JavaScript's `Math.min` method; it's like method `calculateArrayMaxValue` @{link};
+ *
+ *
+ * ```typescript
+ * // eg. 1
+ * let minValue = calculateArrayMinValue([]);
+ * // now minValue is `0`;
+ *
+ * // eg. 2
+ * let minValue = calculateArrayMinValue([1, 2, 3, 4, 5]);
+ * // now minValue is `1`;
+ *
+ * // eg. 3
+ * let minValue = calculateArrayMinValue([1, 2, 3, 4, 5, '8', 10]);
+ * // now minValue is `1`;
+ *
+ * // eg. 4
+ * let minValue = calculateArrayMinValue([1, 2, 3, 4, 5, 'a', 10]);
+ * // now minValue is `NaN`;
+ * ```
+ *
+ * @param {Array<number>} arr
+ * @returns {number}
+ * */
 function calculateArrayMinValue(arr) {
     if (arr.length === 0) {
         return 0;
@@ -464,6 +607,14 @@ function intersection(arr1, arr2) {
     var set2 = new Set(arr2);
     var result = arr1.filter(function (k) { return set2.has(k); });
     return Array.from(result);
+}
+
+function mergeTwoArray(arr1, arr2, removeRepetition) {
+    if (removeRepetition === void 0) { removeRepetition = false; }
+    if (removeRepetition) {
+        return Array.from(new Set(__spreadArrays(arr1, arr2)));
+    }
+    return __spreadArrays(arr1, arr2);
 }
 
 // 计算并集
@@ -580,7 +731,6 @@ function capitalize(word) {
 function paddingEnd(value, width, padding) {
     if (padding === void 0) { padding = ' '; }
     if (padding.length > 1) {
-        console.warn("padding length must be 1, but your input padding [" + padding + "] length is " + padding.length);
         padding = padding[0];
     }
     return value.length >= width ? value : value + new Array(width - value.length + 1).join(padding);
@@ -589,7 +739,6 @@ function paddingEnd(value, width, padding) {
 function paddingStart(value, width, padding) {
     if (padding === void 0) { padding = ' '; }
     if (padding.length > 1) {
-        console.warn("padding length must be 1, but your input padding [" + padding + "] length is " + padding.length);
         padding = padding[0];
     }
     return value.length >= width ? value : new Array(width - value.length + 1).join(padding) + value;
@@ -870,6 +1019,7 @@ var DateTypeEnum;
     DateTypeEnum[DateTypeEnum["MINUTES"] = 4] = "MINUTES";
     DateTypeEnum[DateTypeEnum["SECONDS"] = 5] = "SECONDS";
     DateTypeEnum[DateTypeEnum["MILLISECONDS"] = 6] = "MILLISECONDS";
+    DateTypeEnum[DateTypeEnum["WEEK"] = 7] = "WEEK";
 })(DateTypeEnum || (DateTypeEnum = {}));
 var MonthEngToNum;
 (function (MonthEngToNum) {
@@ -917,6 +1067,108 @@ var WeekEngToNum;
 })(WeekEngToNum || (WeekEngToNum = {}));
 var MONTH_DAYS = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31, 29];
 var MONTH_NUMBER = 12;
+
+function breakDateTime(date) {
+    if (date === void 0) { date = new Date(); }
+    date = new Date(date);
+    var year = date.getFullYear();
+    var month = date.getMonth();
+    var day = date.getDate();
+    var hour = date.getHours();
+    var minute = date.getMinutes();
+    var second = date.getSeconds();
+    var milliseconds = date.getMilliseconds();
+    var weekday = date.getDay();
+    return { year: year, month: month, day: day, hour: hour, minute: minute, second: second, milliseconds: milliseconds, weekday: weekday };
+}
+
+function formatTimeToArray(date) {
+    if (date === void 0) { date = new Date(); }
+    var arr = [];
+    var newDate = new Date(date).toTimeString();
+    // @ts-ignore
+    newDate.replace(/^(\d{2}):(\d{2}):(\d{2})/, function (_, g1, g2, g3) {
+        arr = arr.concat([g1, g2, g3]);
+    });
+    return arr;
+}
+
+function formatTime(date, dateTimeOptions) {
+    if (date === void 0) { date = new Date(); }
+    if (dateTimeOptions === void 0) { dateTimeOptions = {}; }
+    var _a = dateTimeOptions.timeMark, timeMark = _a === void 0 ? ':' : _a;
+    return formatTimeToArray(date).join(timeMark);
+}
+
+function formatDateToArray(date) {
+    if (date === void 0) { date = new Date(); }
+    var arr = [];
+    var newDate = new Date(date).toLocaleDateString();
+    // @ts-ignore
+    newDate.replace(/\d+/ig, function (val) {
+        val = val.length < 2 ? '0' + val : val;
+        arr.push(val);
+    });
+    arr.push(arr[0].slice(2));
+    return arr;
+}
+
+function formatDate(date, dateTimeOptions) {
+    if (date === void 0) { date = new Date(); }
+    if (dateTimeOptions === void 0) { dateTimeOptions = {}; }
+    var _a = dateTimeOptions.dateMark, dateMark = _a === void 0 ? '-' : _a;
+    return formatDateToArray(date).slice(0, 3).join(dateMark);
+}
+
+function formatDateToCn(date, options) {
+    if (date === void 0) { date = new Date(); }
+    if (options === void 0) { options = {}; }
+    var _a = options.yearCn, yearCn = _a === void 0 ? '年' : _a, _b = options.monthCn, monthCn = _b === void 0 ? '月' : _b, _c = options.dayCn, dayCn = _c === void 0 ? '日' : _c;
+    var arr = formatDateToArray(date);
+    return "" + arr[0] + yearCn + arr[1] + monthCn + arr[2] + dayCn;
+}
+
+function formatTimeToCn(date, options) {
+    if (date === void 0) { date = new Date(); }
+    if (options === void 0) { options = {}; }
+    var _a = options.hourCn, hourCn = _a === void 0 ? '时' : _a, _b = options.minuteCn, minuteCn = _b === void 0 ? '分' : _b, _c = options.secondCn, secondCn = _c === void 0 ? '秒' : _c;
+    var arr = formatTimeToArray(date);
+    return "" + arr[0] + hourCn + arr[1] + minuteCn + arr[2] + secondCn;
+}
+
+function formatDateTime(date, dateTimeOptions) {
+    if (date === void 0) { date = new Date(); }
+    if (dateTimeOptions === void 0) { dateTimeOptions = {}; }
+    var needCn = dateTimeOptions.needCn;
+    if (needCn) {
+        return formatDateToCn(date, dateTimeOptions) + " " + formatTimeToCn(date);
+    }
+    return formatDate(date, dateTimeOptions) + " " + formatTime(date);
+}
+
+function addDateTime(startDate, unit, value) {
+    if (startDate === void 0) { startDate = new Date(); }
+    if (unit === void 0) { unit = DateTypeEnum.DAYS; }
+    if (value === void 0) { value = 0; }
+    var _a = breakDateTime(new Date(startDate)), year = _a.year, month = _a.month, day = _a.day, hour = _a.hour, minute = _a.minute, second = _a.second, milliseconds = _a.milliseconds;
+    if (!isNumber(value)) {
+        throw new TypeError("addDateTime: expect `value` " + value + " is number, but got " + typeof value);
+    }
+    switch (unit) {
+        case DateTypeEnum.YEARS:
+            return formatDateTime(new Date(year + value, month, day, hour, minute, second, milliseconds));
+        case DateTypeEnum.MONTHS:
+            return formatDateTime(new Date(year, month + value, day, hour, minute, second, milliseconds));
+        case DateTypeEnum.DAYS:
+            return formatDateTime(new Date(year, month, day + value, hour, minute, second, milliseconds));
+        case DateTypeEnum.HOURS:
+            return formatDateTime(new Date(year, month, day, hour + value, minute, second, milliseconds));
+        case DateTypeEnum.MINUTES:
+            return formatDateTime(new Date(year, month, day, hour, minute + value, second, milliseconds));
+        case DateTypeEnum.SECONDS:
+            return formatDateTime(new Date(year, month, day, hour, minute, second + value, milliseconds));
+    }
+}
 
 function intDivCeil(a, b) {
     return Math.ceil(a / b);
@@ -980,70 +1232,6 @@ function diffDateTime(startDate, endDate, mode) {
     }
 }
 
-function formatDateToArray(date) {
-    if (date === void 0) { date = new Date(); }
-    var arr = [];
-    var newDate = new Date(date).toLocaleDateString();
-    // @ts-ignore
-    newDate.replace(/\d+/ig, function (val) {
-        val = val.length < 2 ? '0' + val : val;
-        arr.push(val);
-    });
-    arr.push(arr[0].slice(2));
-    return arr;
-}
-
-function formatDate(date, dateTimeOptions) {
-    if (date === void 0) { date = new Date(); }
-    if (dateTimeOptions === void 0) { dateTimeOptions = {}; }
-    var _a = dateTimeOptions.dateMark, dateMark = _a === void 0 ? '-' : _a;
-    return formatDateToArray(date).slice(0, 3).join(dateMark);
-}
-
-function formatTimeToArray(date) {
-    if (date === void 0) { date = new Date(); }
-    var arr = [];
-    var newDate = new Date(date).toTimeString();
-    // @ts-ignore
-    newDate.replace(/^(\d{2}):(\d{2}):(\d{2})/, function (_, g1, g2, g3) {
-        arr = arr.concat([g1, g2, g3]);
-    });
-    return arr;
-}
-
-function formatTime(date, dateTimeOptions) {
-    if (date === void 0) { date = new Date(); }
-    if (dateTimeOptions === void 0) { dateTimeOptions = {}; }
-    var _a = dateTimeOptions.timeMark, timeMark = _a === void 0 ? ':' : _a;
-    return formatTimeToArray(date).join(timeMark);
-}
-
-function formatDateToCn(date, options) {
-    if (date === void 0) { date = new Date(); }
-    if (options === void 0) { options = {}; }
-    var _a = options.yearCn, yearCn = _a === void 0 ? '年' : _a, _b = options.monthCn, monthCn = _b === void 0 ? '月' : _b, _c = options.dayCn, dayCn = _c === void 0 ? '日' : _c;
-    var arr = formatDateToArray(date);
-    return "" + arr[0] + yearCn + arr[1] + monthCn + arr[2] + dayCn;
-}
-
-function formatTimeToCn(date, options) {
-    if (date === void 0) { date = new Date(); }
-    if (options === void 0) { options = {}; }
-    var _a = options.hourCn, hourCn = _a === void 0 ? '时' : _a, _b = options.minuteCn, minuteCn = _b === void 0 ? '分' : _b, _c = options.secondCn, secondCn = _c === void 0 ? '秒' : _c;
-    var arr = formatTimeToArray(date);
-    return "" + arr[0] + hourCn + arr[1] + minuteCn + arr[2] + secondCn;
-}
-
-function formatDateTime(date, dateTimeOptions) {
-    if (date === void 0) { date = new Date(); }
-    if (dateTimeOptions === void 0) { dateTimeOptions = {}; }
-    var needCn = dateTimeOptions.needCn;
-    if (needCn) {
-        return formatDateToCn(date, dateTimeOptions) + " " + formatTimeToCn(date);
-    }
-    return formatDate(date, dateTimeOptions) + " " + formatTime(date);
-}
-
 // 转换时间 18:25:30 为当天的秒数
 function timeToSeconds(time, mark) {
     if (mark === void 0) { mark = ':'; }
@@ -1055,8 +1243,6 @@ function timeToSeconds(time, mark) {
 }
 
 var index = {};
-
-var index$1 = {};
 
 // 随机颜色 16 进制
 function randomColor(needUpper) {
@@ -1087,4 +1273,4 @@ function randomString(maxLength) {
     return str;
 }
 
-export { $selector, addClassName, ajax, arrayify, buildURL, calculateArrayAverage, calculateArrayMaxValue, calculateArrayMinValue, capitalize, convertObjToURLString, copyToClipboard, deleteClassName, diffDateTime, differenceSet, downloadText, emailRegexp, encodeUrl, findDuplicateElements, formatDate, formatDateTime, formatDateToArray, formatDateToCn, formatTime, formatTimeToArray, formatTimeToCn, frontEndSwitchPage, generateImageDom, hasClassName, intDivCeil, intDivFloor, intersection, isArray, isBaseType, isBoolean, isBrowser, isDate, isEmail, isEmptyArray, isEmptyObject, isError, isEven, isFunction, isHTMLElement, isInt, isLeapYear, isMap, isNaN, isNegativeNumber, isNull, isNumber, isObject, isOdd, isPhone, isPlainObject, isPositiveNumber, isSet, isString, isStringNumber, isSymbol, isUndefined, isValidDate, isWeakMap, isWeakSet, jsonp, lazyLoadImage, paddingEnd, paddingStart, parseDigitalPrecision, parseHttpHeaders, parseStringToJSON, parseToNumber, parseURLParameter, phoneRegexp, pipeAsyncFunctions, promisify, randomColor, randomNumber, randomString, replaceClassName, replaceWords, stringNumberRegexp, timeToSeconds, transformListToObject, trim, trimLeft, trimRight, union, uuid };
+export { $selector, addClassName, addDateTime, ajax, arrayElementsMaxTimes, arrayElementsTimes, arrayify, breakDateTime, buildURL, calculateArrayAverage, calculateArrayMaxValue, calculateArrayMinValue, capitalize, convertObjToURLString, copyToClipboard, deleteClassName, diffDateTime, differenceSet, downloadText, emailRegexp, encodeUrl, findDuplicateElements, formatDate, formatDateTime, formatDateToArray, formatDateToCn, formatTime, formatTimeToArray, formatTimeToCn, frontEndSwitchPage, generateImageDom, hasClassName, intDivCeil, intDivFloor, intersection, isArray, isBaseType, isBoolean, isBrowser, isDate, isEmail, isEmptyArray, isEmptyObject, isError, isEven, isFunction, isHTMLElement, isInt, isLeapYear, isMap, isNaN, isNegativeNumber, isNull, isNumber, isObject, isOdd, isPhone, isPlainObject, isPositiveNumber, isSet, isString, isStringNumber, isSymbol, isUndefined, isValidDate, isWeakMap, isWeakSet, jsonp, lazyLoadImage, mergeTwoArray, paddingEnd, paddingStart, parseDigitalPrecision, parseHttpHeaders, parseStringToJSON, parseToNumber, parseURLParameter, phoneRegexp, pipeAsyncFunctions, promisify, randomColor, randomNumber, randomString, replaceClassName, replaceWords, stringNumberRegexp, timeToSeconds, transformListToObject, trim, trimLeft, trimRight, union, uuid };

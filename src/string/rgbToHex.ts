@@ -1,4 +1,4 @@
-import {parseToNumber} from '../number';
+import { parseToNumber } from '../number';
 
 export function rgbToHex(red: number, green: number, blue: number): string {
   red = parseToNumber(red);

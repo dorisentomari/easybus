@@ -6,9 +6,9 @@ export interface JsonpOptions {
 
 export function jsonp(options: JsonpOptions) {
   return new Promise((resolve, reject) => {
-    let {url = '', callback, params = {}} = options;
+    let { url = '', callback, params = {} } = options;
     const body = document.querySelector('body');
-    let script = document.createElement('script');
+    const script = document.createElement('script');
 
     if (body) {
       // @ts-ignore
@@ -28,7 +28,7 @@ export function jsonp(options: JsonpOptions) {
         callback
       };
       let str = '';
-      for (let key in params) {
+      for (const key in params) {
         str += `${key}=${params[key]}&`;
       }
       script.src = `${url}?${str}`.slice(0, -1);

@@ -1,5 +1,5 @@
 export function downloadText(filename: string, text: string) {
-  let el = document.createElement('a');
+  const el = document.createElement('a');
   el.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
   el.setAttribute('download', filename);
   el.style.display = 'none';

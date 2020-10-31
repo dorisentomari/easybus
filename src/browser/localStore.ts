@@ -1,11 +1,11 @@
-import {isBrowser} from '../common';
-import {IStorage} from '../types/browser';
+import { isBrowser } from '../common';
+import { IStorage } from '../types/browser';
 
 export const localStore: IStorage = {};
 if (isBrowser()) {
   const _localStorage = window.localStorage;
   localStore.getItem = function (key: string) {
-    let value = _localStorage.getItem(key);
+    const value = _localStorage.getItem(key);
     try {
       return JSON.parse(value);
     } catch (err) {
@@ -27,4 +27,3 @@ if (isBrowser()) {
 } else {
   throw new Error('localStorage: 只能在浏览器端使用');
 }
-

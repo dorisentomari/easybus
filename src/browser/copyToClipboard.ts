@@ -1,4 +1,4 @@
-import {isBaseType} from '../common/is';
+import { isBaseType } from '../common/is';
 
 export function copyToClipboard(str: any) {
   if (!isBaseType(str)) {

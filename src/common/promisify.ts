@@ -1,6 +1,4 @@
-import {IFn} from '../types/common';
-
-export function promisify(func: IFn) {
+export function promisify(func: (...args: Array<any>) => any) {
   return (...args: Array<any>) => {
     return new Promise((resolve, reject) => {
       func(...args, (err: any, result: any) => {

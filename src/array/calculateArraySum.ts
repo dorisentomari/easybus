@@ -1,6 +1,6 @@
-import {isArray, isNumber, isPlainObject} from '../common';
+import { isArray, isNumber, isPlainObject } from '../common';
 
-export function calculateArraySum(arr: Array<number> | Array<any>, field?:string) {
+export function calculateArraySum(arr: Array<number> | Array<any>, field?: string) {
   if (isArray(arr)) {
     return arr.reduce((prev, curr) => {
       if (isNumber(curr)) {

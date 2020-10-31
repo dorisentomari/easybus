@@ -1,20 +1,20 @@
-import {AjaxPromise, AjaxRequestConfig, AjaxResponse, createError} from '../types/ajax';
-import {parseHttpHeaders, isPlainObject} from '../common';
-import {buildURL} from '../string';
-import {parseStringToJSON} from '../object';
+import { AjaxPromise, AjaxRequestConfig, AjaxResponse, createError } from '../types/ajax';
+import { isPlainObject } from '../common';
+import { buildURL } from '../string';
+import { parseStringToJSON } from '../object';
 
 const CONTENT_TYPE = 'Content-Type';
 
 function xhr(config: AjaxRequestConfig): AjaxPromise {
   return new Promise((resolve, reject) => {
     const request = new XMLHttpRequest();
-    let {data, url, method = 'get', headers = {}, timeout = 0, responseType} = config;
+    const { data, url, method = 'get', headers = {}, timeout = 0, responseType } = config;
     request.responseType = responseType ? responseType : 'json';
     request.timeout = timeout;
 
     request.open(method.toUpperCase(), url, true);
 
-    Object.keys(headers).forEach(name => {
+    Object.keys(headers).forEach((name) => {
       if (data === null && name.toLowerCase() === CONTENT_TYPE.toLowerCase()) {
         delete headers[name];
       } else {
@@ -60,13 +60,15 @@ function xhr(config: AjaxRequestConfig): AjaxPromise {
         response.data = parseStringToJSON(response.data);
         return resolve(response);
       } else {
-        return reject(createError(
-          `Request failed with status code ${status}`,
-          config,
-          'ECONNABORTED',
-          request,
-          response
-        ));
+        return reject(
+          createError(
+            `Request failed with status code ${status}`,
+            config,
+            'ECONNABORTED',
+            request,
+            response
+          )
+        );
       }
     }
   });
@@ -80,7 +82,7 @@ export function ajax(config: AjaxRequestConfig): AjaxPromise {
 }
 
 function processRequestUrl(config: AjaxRequestConfig): string {
-  const {url, params} = config;
+  const { url, params } = config;
   return buildURL(url, params);
 }
 
@@ -92,11 +94,31 @@ function processRequestData(config: AjaxRequestConfig): any {
 }
 
 function processRequestHeaders(config: AjaxRequestConfig): void {
-  let {headers = {}, data} = config;
+  const { headers = {}, data } = config;
   if (isPlainObject(data)) {
     if (headers && !headers[CONTENT_TYPE]) {
       headers[CONTENT_TYPE] = 'application/json;charset=utf-8';
     }
   }
   return headers;
+}
+
+function parseHttpHeaders(headers: string) {
+  const parsed = Object.create(null);
+  if (!headers) {
+    return parsed;
+  }
+
+  headers.split('\r\n').forEach((line) => {
+    let [key, value] = line.split(':');
+    key = key.trim().toLowerCase();
+    if (!key) {
+      return;
+    }
+    if (value) {
+      value = value.trim();
+    }
+    parsed[key] = value;
+  });
+  return parsed;
 }

@@ -1,4 +1,4 @@
-import {hasClassName} from './hasClassName';
+import { hasClassName } from './hasClassName';
 
 export function addClassName(elem: HTMLElement, name: string) {
   if (!hasClassName(elem, name)) {

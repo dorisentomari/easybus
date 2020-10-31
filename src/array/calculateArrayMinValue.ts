@@ -26,7 +26,7 @@
  * @returns {number}
  * */
 
-export function calculateArrayMinValue(arr: Array<any>) : number{
+export function calculateArrayMinValue(arr: Array<any>): number {
   if (arr.length === 0) {
     return 0;
   }
