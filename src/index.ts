@@ -8,3 +8,4 @@ export * from './object';
 export * from './random';
 export * from './regexp';
 export * from './string';
+export * from './types';
