@@ -1014,7 +1014,6 @@
       }
   }
 
-  var DateTypeEnum;
   (function (DateTypeEnum) {
       DateTypeEnum[DateTypeEnum["YEARS"] = 0] = "YEARS";
       DateTypeEnum[DateTypeEnum["MONTHS"] = 1] = "MONTHS";
@@ -1024,8 +1023,7 @@
       DateTypeEnum[DateTypeEnum["SECONDS"] = 5] = "SECONDS";
       DateTypeEnum[DateTypeEnum["MILLISECONDS"] = 6] = "MILLISECONDS";
       DateTypeEnum[DateTypeEnum["WEEK"] = 7] = "WEEK";
-  })(DateTypeEnum || (DateTypeEnum = {}));
-  var MonthEngToNum;
+  })(exports.DateTypeEnum || (exports.DateTypeEnum = {}));
   (function (MonthEngToNum) {
       MonthEngToNum[MonthEngToNum["Jan"] = 1] = "Jan";
       MonthEngToNum[MonthEngToNum["Feb"] = 2] = "Feb";
@@ -1051,8 +1049,7 @@
       MonthEngToNum[MonthEngToNum["OCT"] = 10] = "OCT";
       MonthEngToNum[MonthEngToNum["NOV"] = 11] = "NOV";
       MonthEngToNum[MonthEngToNum["DEC"] = 12] = "DEC";
-  })(MonthEngToNum || (MonthEngToNum = {}));
-  var WeekEngToNum;
+  })(exports.MonthEngToNum || (exports.MonthEngToNum = {}));
   (function (WeekEngToNum) {
       WeekEngToNum[WeekEngToNum["Mon"] = 1] = "Mon";
       WeekEngToNum[WeekEngToNum["Tue"] = 2] = "Tue";
@@ -1068,7 +1065,7 @@
       WeekEngToNum[WeekEngToNum["FRI"] = 5] = "FRI";
       WeekEngToNum[WeekEngToNum["SAT"] = 6] = "SAT";
       WeekEngToNum[WeekEngToNum["SUN"] = 7] = "SUN";
-  })(WeekEngToNum || (WeekEngToNum = {}));
+  })(exports.WeekEngToNum || (exports.WeekEngToNum = {}));
   var MONTH_DAYS = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31, 29];
   var MONTH_NUMBER = 12;
 
@@ -1148,24 +1145,24 @@
 
   function addDateTime(startDate, unit, value) {
       if (startDate === void 0) { startDate = new Date(); }
-      if (unit === void 0) { unit = DateTypeEnum.DAYS; }
+      if (unit === void 0) { unit = exports.DateTypeEnum.DAYS; }
       if (value === void 0) { value = 0; }
       var _a = breakDateTime(new Date(startDate)), year = _a.year, month = _a.month, day = _a.day, hour = _a.hour, minute = _a.minute, second = _a.second, milliseconds = _a.milliseconds;
       if (!isNumber(value)) {
           throw new TypeError("addDateTime: expect `value` " + value + " is number, but got " + typeof value);
       }
       switch (unit) {
-          case DateTypeEnum.YEARS:
+          case exports.DateTypeEnum.YEARS:
               return formatDateTime(new Date(year + value, month, day, hour, minute, second, milliseconds));
-          case DateTypeEnum.MONTHS:
+          case exports.DateTypeEnum.MONTHS:
               return formatDateTime(new Date(year, month + value, day, hour, minute, second, milliseconds));
-          case DateTypeEnum.DAYS:
+          case exports.DateTypeEnum.DAYS:
               return formatDateTime(new Date(year, month, day + value, hour, minute, second, milliseconds));
-          case DateTypeEnum.HOURS:
+          case exports.DateTypeEnum.HOURS:
               return formatDateTime(new Date(year, month, day, hour + value, minute, second, milliseconds));
-          case DateTypeEnum.MINUTES:
+          case exports.DateTypeEnum.MINUTES:
               return formatDateTime(new Date(year, month, day, hour, minute + value, second, milliseconds));
-          case DateTypeEnum.SECONDS:
+          case exports.DateTypeEnum.SECONDS:
               return formatDateTime(new Date(year, month, day, hour, minute, second + value, milliseconds));
       }
   }
@@ -1197,7 +1194,7 @@
   }
 
   function diffDateTime(startDate, endDate, mode) {
-      if (mode === void 0) { mode = DateTypeEnum.DAYS; }
+      if (mode === void 0) { mode = exports.DateTypeEnum.DAYS; }
       startDate = new Date(startDate);
       endDate = new Date(endDate);
       var diff = +endDate - +startDate;
@@ -1205,17 +1202,17 @@
       var endYear = endDate.getFullYear();
       var diffYears = endYear - startYear;
       switch (mode) {
-          case DateTypeEnum.YEARS:
+          case exports.DateTypeEnum.YEARS:
               return diffYears;
-          case DateTypeEnum.MONTHS:
+          case exports.DateTypeEnum.MONTHS:
               return diffYears * 12 - startDate.getMonth() + endDate.getMonth();
-          case DateTypeEnum.DAYS:
+          case exports.DateTypeEnum.DAYS:
               return intDiv(diff, 1000 * 60 * 60 * 24);
-          case DateTypeEnum.HOURS:
+          case exports.DateTypeEnum.HOURS:
               return intDiv(diff, 1000 * 60 * 60);
-          case DateTypeEnum.MINUTES:
+          case exports.DateTypeEnum.MINUTES:
               return intDiv(diff, 1000 * 60);
-          case DateTypeEnum.SECONDS:
+          case exports.DateTypeEnum.SECONDS:
               return intDiv(diff, 1000);
       }
   }
@@ -1262,6 +1259,9 @@
   }
 
   exports.$selector = $selector;
+  exports.AjaxError = AjaxError;
+  exports.MONTH_DAYS = MONTH_DAYS;
+  exports.MONTH_NUMBER = MONTH_NUMBER;
   exports.addClassName = addClassName;
   exports.addDateTime = addDateTime;
   exports.ajax = ajax;
@@ -1276,6 +1276,7 @@
   exports.capitalize = capitalize;
   exports.convertObjToURLString = convertObjToURLString;
   exports.copyToClipboard = copyToClipboard;
+  exports.createError = createError;
   exports.deleteClassName = deleteClassName;
   exports.diffDateTime = diffDateTime;
   exports.differenceSet = differenceSet;

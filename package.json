@@ -23,12 +23,14 @@
     "clean": "npm-run-all --parallel clean:**",
     "test": "jest",
     "coverall": "cat ./lcov.info | coveralls",
+    "action:pre-add": "npm-run-all --serial build:**",
     "action:pre-commit": "npm-run-all --serial build:**",
     "action:pre-push": "npm run test"
   },
   "husky": {
     "hooks": {
-      "pre-commit": "npm run action:pre-commit",
+      "pre-add": "action:pre-add",
+      "pre-commit": "git add .",
       "pre-push": "npm run action:pre-push"
     }
   },
