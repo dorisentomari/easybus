@@ -1,6 +1,13 @@
 import { isObject, isEmptyObject } from '../common';
 
-export function isRectanglesOverlap(rect1 = {}, rect2 = {}) {
+interface IRectanglesItem {
+  x: number;
+  y: number;
+  width: number;
+  height: number;
+}
+
+export function isRectanglesOverlap(rect1: IRectanglesItem, rect2: IRectanglesItem) {
   if (!isObject(rect1) || !isObject(rect2) || isEmptyObject(rect1) || isEmptyObject(rect2)) {
     return false;
   }
