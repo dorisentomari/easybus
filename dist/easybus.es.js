@@ -590,6 +590,22 @@ function intersection(arr1, arr2) {
     return Array.from(result);
 }
 
+function matchFieldsByIndex(fields, dataList, key) {
+    var result = {};
+    for (var i = 0; i < dataList.length; i++) {
+        var data = dataList[i];
+        var obj = {};
+        for (var j = 0; j < fields.length; j++) {
+            var field = fields[j];
+            obj[field] = data[j];
+            if (field === key) {
+                result[data[j]] = obj;
+            }
+        }
+    }
+    return result;
+}
+
 function mergeTwoArray(arr1, arr2, removeRepetition) {
     if (removeRepetition === void 0) { removeRepetition = false; }
     if (removeRepetition) {
@@ -1255,4 +1271,12 @@ function randomString(maxLength) {
     return str;
 }
 
-export { $selector, AjaxError, DateTypeEnum, MONTH_DAYS, MONTH_NUMBER, MonthEngToNum, WeekEngToNum, addClassName, addDateTime, ajax, arrayElementsMaxTimes, arrayElementsTimes, arrayify, breakDateTime, buildURL, calculateArrayAverage, calculateArrayMaxValue, calculateArrayMinValue, capitalize, convertObjToURLString, copyToClipboard, createError, deleteClassName, diffDateTime, differenceSet, downloadText, emailRegexp, encodeUrl, findDuplicateElements, formatDate, formatDateTime, formatDateToArray, formatDateToCn, formatTime, formatTimeToArray, formatTimeToCn, frontEndSwitchPage, generateImageDom, hasClassName, intDiv, intDivCeil, intersection, isArray, isBaseType, isBoolean, isBrowser, isDate, isEmail, isEmptyArray, isEmptyObject, isError, isEven, isFunction, isHTMLElement, isInt, isLeapYear, isMap, isNaN, isNegativeNumber, isNode, isNull, isNumber, isObject, isOdd, isPhone, isPlainObject, isPositiveNumber, isSet, isString, isStringNumber, isSymbol, isUndefined, isValidDate, isWeakMap, isWeakSet, jsonp, lazyLoadImage, mergeTwoArray, paddingEnd, paddingStart, parseStringToJSON, parseToNumber, parseURLParameter, phoneRegexp, pipeAsyncFunctions, promisify, randomColor, randomNumber, randomString, replaceClassName, replaceWords, stringNumberRegexp, timeToSeconds, transformListToObject, trim, trimLeft, trimRight, union };
+var fields = ['name', 'age', 'home'];
+var dataList = [
+    ['jack', 18, 'shanghai'],
+    ['mark', 19, 'beijing'],
+    ['tom', 20, 'hongkong'],
+];
+console.log(matchFieldsByIndex(fields, dataList, 'name'));
+
+export { $selector, AjaxError, DateTypeEnum, MONTH_DAYS, MONTH_NUMBER, MonthEngToNum, WeekEngToNum, addClassName, addDateTime, ajax, arrayElementsMaxTimes, arrayElementsTimes, arrayify, breakDateTime, buildURL, calculateArrayAverage, calculateArrayMaxValue, calculateArrayMinValue, capitalize, convertObjToURLString, copyToClipboard, createError, deleteClassName, diffDateTime, differenceSet, downloadText, emailRegexp, encodeUrl, findDuplicateElements, formatDate, formatDateTime, formatDateToArray, formatDateToCn, formatTime, formatTimeToArray, formatTimeToCn, frontEndSwitchPage, generateImageDom, hasClassName, intDiv, intDivCeil, intersection, isArray, isBaseType, isBoolean, isBrowser, isDate, isEmail, isEmptyArray, isEmptyObject, isError, isEven, isFunction, isHTMLElement, isInt, isLeapYear, isMap, isNaN, isNegativeNumber, isNode, isNull, isNumber, isObject, isOdd, isPhone, isPlainObject, isPositiveNumber, isSet, isString, isStringNumber, isSymbol, isUndefined, isValidDate, isWeakMap, isWeakSet, jsonp, lazyLoadImage, matchFieldsByIndex, mergeTwoArray, paddingEnd, paddingStart, parseStringToJSON, parseToNumber, parseURLParameter, phoneRegexp, pipeAsyncFunctions, promisify, randomColor, randomNumber, randomString, replaceClassName, replaceWords, stringNumberRegexp, timeToSeconds, transformListToObject, trim, trimLeft, trimRight, union };

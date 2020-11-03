@@ -1,5 +1,5 @@
 import { formatDateToArray } from './formatDateToArray';
-import { DateType, IFormatDatetimeOptions } from '../types/date';
+import { DateType, IFormatDatetimeOptions } from '../types';
 
 export function formatDateToCn(date: DateType = new Date(), options: IFormatDatetimeOptions = {}) {
   const { yearCn = '年', monthCn = '月', dayCn = '日' } = options;

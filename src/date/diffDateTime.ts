@@ -1,4 +1,4 @@
-import { DateType, DateTypeEnum } from '../types/date';
+import { DateType, DateTypeEnum } from '../types';
 import { intDiv } from '../number';
 
 export function diffDateTime(

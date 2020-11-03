@@ -1,4 +1,4 @@
-import { MONTH_DAYS, MONTH_NUMBER } from '../types/date';
+import { MONTH_DAYS, MONTH_NUMBER } from '../types';
 
 export function getDateByDays(days: number) {
   let currentDays = 0;

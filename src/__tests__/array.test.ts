@@ -8,6 +8,7 @@ import {
   differenceSet,
   findDuplicateElements,
   intersection,
+  matchFieldsByIndex,
   mergeTwoArray,
   union,
 } from '../array';
@@ -129,5 +130,19 @@ describe('测试 array', () => {
   test('测试 union', () => {
     expect(union([], [])).toEqual([]);
     expect(union([1, 2, 3], [3, 4, 5])).toEqual([1, 2, 3, 4, 5]);
+  });
+
+  test('测试 matchFieldsByIndex', () => {
+    const fields = ['name', 'age', 'home'];
+    const dataList = [
+      ['jack', 18, 'shanghai'],
+      ['mark', 19, 'beijing'],
+      ['tom', 20, 'hongkong'],
+    ];
+    expect(matchFieldsByIndex(fields, dataList, 'name')).toEqual({
+      jack: { name: 'jack', age: 18, home: 'shanghai' },
+      mark: { name: 'mark', age: 19, home: 'beijing' },
+      tom: { name: 'tom', age: 20, home: 'hongkong' },
+    });
   });
 });

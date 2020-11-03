@@ -1,4 +1,4 @@
-import { DateType } from '../types/date';
+import { DateType } from '../types';
 import { breakDateTime } from './breakDateTime';
 import { paddingStart } from '../string';
 

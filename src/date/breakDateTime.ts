@@ -1,4 +1,4 @@
-import { DateType } from '../types/date';
+import { DateType } from '../types';
 
 export interface DateFields {
   year: number;

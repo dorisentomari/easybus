@@ -1,6 +1,6 @@
 import { formatTime } from './formatTime';
 import { formatDate } from './formatDate';
-import { DateType, IFormatDatetimeOptions } from '../types/date';
+import { DateType, IFormatDatetimeOptions } from '../types';
 import { formatDateToCn } from './formatDateToCn';
 import { formatTimeToCn } from './formatTimeToCn';
 

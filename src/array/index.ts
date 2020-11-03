@@ -7,5 +7,7 @@ export * from './calculateArrayMinValue';
 export * from './differenceSet';
 export * from './findDuplicateElements';
 export * from './intersection';
+export * from './matchFieldsByIndex';
 export * from './mergeTwoArray';
+export * from './permutations';
 export * from './union';

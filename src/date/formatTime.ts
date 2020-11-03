@@ -1,5 +1,5 @@
 import { formatTimeToArray } from './formatTimeToArray';
-import { DateType, IFormatDatetimeOptions } from '../types/date';
+import { DateType, IFormatDatetimeOptions } from '../types';
 
 export function formatTime(
   date: DateType = new Date(),

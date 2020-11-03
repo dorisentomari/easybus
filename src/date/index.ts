@@ -1,5 +1,6 @@
 export * from './addDateTime';
 export * from './breakDateTime';
+export * from './convertUTCToLocal';
 export * from './diffDateTime';
 export * from './formatDate';
 export * from './formatDateTime';
@@ -8,4 +9,5 @@ export * from './formatDateToCn';
 export * from './formatTime';
 export * from './formatTimeToArray';
 export * from './formatTimeToCn';
+export * from './isStandardDate';
 export * from './timeToSeconds';

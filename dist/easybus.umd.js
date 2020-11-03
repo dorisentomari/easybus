@@ -596,6 +596,22 @@
       return Array.from(result);
   }
 
+  function matchFieldsByIndex(fields, dataList, key) {
+      var result = {};
+      for (var i = 0; i < dataList.length; i++) {
+          var data = dataList[i];
+          var obj = {};
+          for (var j = 0; j < fields.length; j++) {
+              var field = fields[j];
+              obj[field] = data[j];
+              if (field === key) {
+                  result[data[j]] = obj;
+              }
+          }
+      }
+      return result;
+  }
+
   function mergeTwoArray(arr1, arr2, removeRepetition) {
       if (removeRepetition === void 0) { removeRepetition = false; }
       if (removeRepetition) {
@@ -1258,6 +1274,14 @@
       return str;
   }
 
+  var fields = ['name', 'age', 'home'];
+  var dataList = [
+      ['jack', 18, 'shanghai'],
+      ['mark', 19, 'beijing'],
+      ['tom', 20, 'hongkong'],
+  ];
+  console.log(matchFieldsByIndex(fields, dataList, 'name'));
+
   exports.$selector = $selector;
   exports.AjaxError = AjaxError;
   exports.MONTH_DAYS = MONTH_DAYS;
@@ -1332,6 +1356,7 @@
   exports.isWeakSet = isWeakSet;
   exports.jsonp = jsonp;
   exports.lazyLoadImage = lazyLoadImage;
+  exports.matchFieldsByIndex = matchFieldsByIndex;
   exports.mergeTwoArray = mergeTwoArray;
   exports.paddingEnd = paddingEnd;
   exports.paddingStart = paddingStart;
