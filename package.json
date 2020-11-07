@@ -12,9 +12,10 @@
     "dev:test:report": "cd lcov-report && hs -o",
     "dev:task": "",
     "build:rollup": "cross-env NODE_ENV=production rollup --config rollup.config.js",
+    "build:tsc": "tsc --declaration -p ./ -t es2015 --emitDeclarationOnly",
     "build:docs": "typedoc --options ./scripts/typedocs.js",
     "build:task": "node ./scripts/task.js",
-    "build:eslint": "eslint --fix ./src/**/*.ts ./scripts/**.js ./server/**.js",
+    "build:eslint": "eslint --fix ./src/**/*.ts ./scripts/**.js ./server/**.js ./dist/**/*.d.ts",
     "clean:dist": "rimraf ./dist",
     "clean:docs": "rimraf ./docs",
     "clean:jest-report": "rimraf lcov-report && rimraf clover.xml && rimraf coverage-final.json && rimraf lcov.info",
@@ -41,7 +42,7 @@
   "main": "dist/easybus.js",
   "module": "dist/easybus.es.js",
   "umd": "dist/easybus.umd.js",
-  "types": "dist/index.d.ts",
+  "types": "src/index.d.ts",
   "files": [
     "dist",
     "src"
