@@ -42,7 +42,7 @@
   "main": "dist/easybus.js",
   "module": "dist/easybus.es.js",
   "umd": "dist/easybus.umd.js",
-  "types": "src/index.d.ts",
+  "types": "dist/index.d.ts",
   "files": [
     "dist",
     "src"

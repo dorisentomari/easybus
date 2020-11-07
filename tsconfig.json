@@ -4,9 +4,9 @@
     "module": "commonjs",
     "resolveJsonModule": true,
     "rootDir": "src",
-    "outDir": "src",
+    "outDir": "dist",
     "declaration": true,
-    "declarationDir": "src",
+    "declarationDir": "dist",
     "moduleResolution": "Node",
     "esModuleInterop": true,
     "downlevelIteration": true
