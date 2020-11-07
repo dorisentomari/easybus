@@ -1,4 +1,4 @@
-import { insertSortRange } from './insertSortRange';
+import { insertSortRange } from './insertSort';
 
 function __merge(arr, left, middle, right) {
   // 临时空间 auxiliary

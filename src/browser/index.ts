@@ -7,5 +7,7 @@ export * from './generateImageDom';
 export * from './hasClassName';
 export * from './jsonp';
 export * from './lazyLoadImage';
+export * from './localStore';
 export * from './replaceClassName';
 export * from './selector';
+export * from './sessionStore';

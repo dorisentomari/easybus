@@ -1,4 +1,4 @@
-import { insertSortRange } from './insertSortRange';
+import { insertSortRange } from './insertSort';
 
 // nlogn 快速排序
 export function quickSort(arr, n) {

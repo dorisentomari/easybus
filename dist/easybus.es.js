@@ -372,7 +372,7 @@ function promisify(func) {
             args[_i] = arguments[_i];
         }
         return new Promise(function (resolve, reject) {
-            func.apply(void 0, __spreadArrays(args, [function (err, result) {
+            func.apply(void 0, __spread(args, [function (err, result) {
                     if (err) {
                         return reject(err);
                     }
@@ -520,7 +520,7 @@ function calculateArrayMaxValue(arr) {
     if (arr.length === 0) {
         return 0;
     }
-    return Math.max.apply(Math, arr);
+    return Math.max.apply(Math, __spread(arr));
 }
 
 /**
@@ -554,7 +554,7 @@ function calculateArrayMinValue(arr) {
     if (arr.length === 0) {
         return 0;
     }
-    return Math.min.apply(Math, arr);
+    return Math.min.apply(Math, __spread(arr));
 }
 
 // 计算差集
@@ -609,14 +609,35 @@ function matchFieldsByIndex(fields, dataList, key) {
 function mergeTwoArray(arr1, arr2, removeRepetition) {
     if (removeRepetition === void 0) { removeRepetition = false; }
     if (removeRepetition) {
-        return Array.from(new Set(__spreadArrays(arr1, arr2)));
+        return Array.from(new Set(__spread(arr1, arr2)));
     }
-    return __spreadArrays(arr1, arr2);
+    return __spread(arr1, arr2);
+}
+
+// 全排列
+function permutations(arr) {
+    if (arr === void 0) { arr = []; }
+    if (!isArray(arr)) {
+        return [];
+    }
+    if (arr.length === 1) {
+        return arr;
+    }
+    else if (arr.length === 2) {
+        return [arr, [arr[1], arr[0]]];
+    }
+    else {
+        return arr.reduce(function (prev, curr, index) {
+            return prev.concat(permutations(__spread(arr.slice(0, index), arr.slice(index + 1))).map(function (value) { return __spread([
+                curr
+            ], value); }));
+        }, []);
+    }
 }
 
 // 计算并集
 function union(arr1, arr2) {
-    return Array.from(new Set(__spreadArrays(arr1, arr2)));
+    return Array.from(new Set(__spread(arr1, arr2)));
 }
 
 function hasClassName(elem, className) {
@@ -777,6 +798,49 @@ function trim(val, isTrimLeft, isTrimRight) {
     return val;
 }
 
+function deepClone(obj) {
+    if (isNull(obj) || isUndefined(obj)) {
+        return obj;
+    }
+    var clone = Object.assign({}, obj);
+    Object.keys(clone).forEach(function (key) {
+        clone[key] = typeof obj[key] === 'object' ? deepClone(obj[key]) : obj[key];
+    });
+    if (isArray(obj)) {
+        if (obj.length > 0) {
+            clone.length = obj.length;
+        }
+        return Array.from(clone);
+    }
+    return clone;
+}
+
+function deepGet(obj, keys) {
+    if (obj === void 0) { obj = {}; }
+    if (keys === void 0) { keys = []; }
+    if (isEmptyObject(obj)) {
+        return null;
+    }
+    if (!isArray(keys) || keys.length === 0) {
+        return null;
+    }
+    return keys.reduce(function (xs, x) {
+        if (xs && xs[x]) {
+            return xs[x];
+        }
+        return null;
+    }, obj);
+}
+
+function isRectanglesOverlap(rect1, rect2) {
+    if (!isObject(rect1) || !isObject(rect2) || isEmptyObject(rect1) || isEmptyObject(rect2)) {
+        return false;
+    }
+    var r1 = rect1.x > rect2.x + rect2.width || rect1.y > rect2.y + rect2.height;
+    var r2 = rect2.x > rect1.x + rect1.width || rect2.y > rect1.y + rect1.height;
+    return !(r1 || r2);
+}
+
 function parseStringToJSON(data) {
     if (isString(data)) {
         try {
@@ -799,6 +863,24 @@ function transformListToObject(list, key) {
         }
     }
     return map;
+}
+
+function uniqueElementsBy(arr, fn) {
+    if (arr === void 0) { arr = []; }
+    if (!isArray(arr)) {
+        return [];
+    }
+    if (!isFunction(fn)) {
+        return arr;
+    }
+    return arr.reduce(function (prev, curr) {
+        // curr 为当次比较的值
+        // x 为 prev 的某个元素
+        if (!prev.some(function (x) { return fn(curr, x); })) {
+            prev.push(curr);
+        }
+        return prev;
+    }, []);
 }
 
 var CONTENT_TYPE = 'Content-Type';
@@ -886,7 +968,7 @@ function parseHttpHeaders(headers) {
         return parsed;
     }
     headers.split('\r\n').forEach(function (line) {
-        var _a = line.split(':'), key = _a[0], value = _a[1];
+        var _a = __read(line.split(':'), 2), key = _a[0], value = _a[1];
         key = key.trim().toLowerCase();
         if (!key) {
             return;
@@ -995,6 +1077,32 @@ function lazyLoadImage(images, defaultSrc, dataSrc) {
     };
 }
 
+var localStore = {};
+if (isBrowser()) {
+    var _localStorage_1 = window.localStorage;
+    localStore.getItem = function (key) {
+        var value = _localStorage_1.getItem(key);
+        try {
+            return JSON.parse(value);
+        }
+        catch (err) {
+            return value;
+        }
+    };
+    localStore.setItem = function (key, value) {
+        return _localStorage_1.setItem(key, JSON.stringify(value));
+    };
+    localStore.removeItem = function (key) {
+        return _localStorage_1.removeItem(key);
+    };
+    localStore.clear = function () {
+        return _localStorage_1.clear();
+    };
+}
+else {
+    throw new Error('localStorage: 只能在浏览器端使用');
+}
+
 function replaceClassName(elem, newClassName, oldClassName) {
     deleteClassName(elem, oldClassName);
     addClassName(elem, newClassName);
@@ -1022,6 +1130,32 @@ function $selector(selector) {
         }
         return document.getElementsByTagName(selector);
     }
+}
+
+var sessionStore = {};
+if (isBrowser()) {
+    var _sessionStorage_1 = window.sessionStorage;
+    sessionStore.getItem = function (key) {
+        var value = _sessionStorage_1.getItem(key);
+        try {
+            return JSON.parse(value);
+        }
+        catch (err) {
+            return value;
+        }
+    };
+    sessionStore.setItem = function (key, value) {
+        return _sessionStorage_1.setItem(key, JSON.stringify(value));
+    };
+    sessionStore.removeItem = function (key) {
+        return _sessionStorage_1.removeItem(key);
+    };
+    sessionStore.clear = function () {
+        return _sessionStorage_1.clear();
+    };
+}
+else {
+    throw new Error('sessionStorage: 只能在浏览器端使用');
 }
 
 var DateTypeEnum;
@@ -1180,6 +1314,15 @@ function addDateTime(startDate, unit, value) {
     }
 }
 
+function convertUTCToLocal(date) {
+    date = new Date(date);
+    var newDate = new Date(date.getTime() + date.getTimezoneOffset() * 60 * 1000);
+    var offset = date.getTimezoneOffset() / 60;
+    var hours = date.getHours();
+    newDate.setHours(hours - offset);
+    return newDate;
+}
+
 function intDivCeil(a, b) {
     return Math.ceil(a / b);
 }
@@ -1230,6 +1373,35 @@ function diffDateTime(startDate, endDate, mode) {
     }
 }
 
+function isStandardDate(date) {
+    if (date === void 0) { date = ''; }
+    var regexp = /(^\d{4})-(\d{2})-(\d{2}$)/gi;
+    var match = regexp.exec(date);
+    if (!match) {
+        return false;
+    }
+    var _a = __read(match, 4), year = _a[1], month = _a[2], day = _a[3];
+    var newYear = Number(year);
+    var newMonth = Number(month);
+    var newDay = Number(day);
+    if (newYear < 1900 || newYear > 2100) {
+        return false;
+    }
+    if (newMonth <= 0 || newMonth > 12) {
+        return false;
+    }
+    if (newDay <= 0 || newDay > 31) {
+        return false;
+    }
+    if (newMonth === 2 && newDay > 29) {
+        return false;
+    }
+    if (isLeapYear(newYear) && newDay > 28) {
+        return false;
+    }
+    return true;
+}
+
 // 转换时间 18:25:30 为当天的秒数
 function timeToSeconds(time, mark) {
     if (mark === void 0) { mark = ':'; }
@@ -1271,12 +1443,4 @@ function randomString(maxLength) {
     return str;
 }
 
-var fields = ['name', 'age', 'home'];
-var dataList = [
-    ['jack', 18, 'shanghai'],
-    ['mark', 19, 'beijing'],
-    ['tom', 20, 'hongkong'],
-];
-console.log(matchFieldsByIndex(fields, dataList, 'name'));
-
-export { $selector, AjaxError, DateTypeEnum, MONTH_DAYS, MONTH_NUMBER, MonthEngToNum, WeekEngToNum, addClassName, addDateTime, ajax, arrayElementsMaxTimes, arrayElementsTimes, arrayify, breakDateTime, buildURL, calculateArrayAverage, calculateArrayMaxValue, calculateArrayMinValue, capitalize, convertObjToURLString, copyToClipboard, createError, deleteClassName, diffDateTime, differenceSet, downloadText, emailRegexp, encodeUrl, findDuplicateElements, formatDate, formatDateTime, formatDateToArray, formatDateToCn, formatTime, formatTimeToArray, formatTimeToCn, frontEndSwitchPage, generateImageDom, hasClassName, intDiv, intDivCeil, intersection, isArray, isBaseType, isBoolean, isBrowser, isDate, isEmail, isEmptyArray, isEmptyObject, isError, isEven, isFunction, isHTMLElement, isInt, isLeapYear, isMap, isNaN, isNegativeNumber, isNode, isNull, isNumber, isObject, isOdd, isPhone, isPlainObject, isPositiveNumber, isSet, isString, isStringNumber, isSymbol, isUndefined, isValidDate, isWeakMap, isWeakSet, jsonp, lazyLoadImage, matchFieldsByIndex, mergeTwoArray, paddingEnd, paddingStart, parseStringToJSON, parseToNumber, parseURLParameter, phoneRegexp, pipeAsyncFunctions, promisify, randomColor, randomNumber, randomString, replaceClassName, replaceWords, stringNumberRegexp, timeToSeconds, transformListToObject, trim, trimLeft, trimRight, union };
+export { $selector, AjaxError, DateTypeEnum, MONTH_DAYS, MONTH_NUMBER, MonthEngToNum, WeekEngToNum, addClassName, addDateTime, ajax, arrayElementsMaxTimes, arrayElementsTimes, arrayify, breakDateTime, buildURL, calculateArrayAverage, calculateArrayMaxValue, calculateArrayMinValue, capitalize, convertObjToURLString, convertUTCToLocal, copyToClipboard, createError, deepClone, deepGet, deleteClassName, diffDateTime, differenceSet, downloadText, emailRegexp, encodeUrl, findDuplicateElements, formatDate, formatDateTime, formatDateToArray, formatDateToCn, formatTime, formatTimeToArray, formatTimeToCn, frontEndSwitchPage, generateImageDom, hasClassName, intDiv, intDivCeil, intersection, isArray, isBaseType, isBoolean, isBrowser, isDate, isEmail, isEmptyArray, isEmptyObject, isError, isEven, isFunction, isHTMLElement, isInt, isLeapYear, isMap, isNaN, isNegativeNumber, isNode, isNull, isNumber, isObject, isOdd, isPhone, isPlainObject, isPositiveNumber, isRectanglesOverlap, isSet, isStandardDate, isString, isStringNumber, isSymbol, isUndefined, isValidDate, isWeakMap, isWeakSet, jsonp, lazyLoadImage, localStore, matchFieldsByIndex, mergeTwoArray, paddingEnd, paddingStart, parseStringToJSON, parseToNumber, parseURLParameter, permutations, phoneRegexp, pipeAsyncFunctions, promisify, randomColor, randomNumber, randomString, replaceClassName, replaceWords, sessionStore, stringNumberRegexp, timeToSeconds, transformListToObject, trim, trimLeft, trimRight, union, uniqueElementsBy };
