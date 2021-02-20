@@ -1103,6 +1103,11 @@ else {
     throw new Error('localStorage: 只能在浏览器端使用');
 }
 
+function pageBottomVisible() {
+    return (document.documentElement.clientHeight + window.scrollY >=
+        (document.documentElement.scrollHeight || document.documentElement.clientHeight));
+}
+
 function replaceClassName(elem, newClassName, oldClassName) {
     deleteClassName(elem, oldClassName);
     addClassName(elem, newClassName);
@@ -1443,4 +1448,4 @@ function randomString(maxLength) {
     return str;
 }
 
-export { $selector, AjaxError, DateTypeEnum, MONTH_DAYS, MONTH_NUMBER, MonthEngToNum, WeekEngToNum, addClassName, addDateTime, ajax, arrayElementsMaxTimes, arrayElementsTimes, arrayify, breakDateTime, buildURL, calculateArrayAverage, calculateArrayMaxValue, calculateArrayMinValue, capitalize, convertObjToURLString, convertUTCToLocal, copyToClipboard, createError, deepClone, deepGet, deleteClassName, diffDateTime, differenceSet, downloadText, emailRegexp, encodeUrl, findDuplicateElements, formatDate, formatDateTime, formatDateToArray, formatDateToCn, formatTime, formatTimeToArray, formatTimeToCn, frontEndSwitchPage, generateImageDom, hasClassName, intDiv, intDivCeil, intersection, isArray, isBaseType, isBoolean, isBrowser, isDate, isEmail, isEmptyArray, isEmptyObject, isError, isEven, isFunction, isHTMLElement, isInt, isLeapYear, isMap, isNaN, isNegativeNumber, isNode, isNull, isNumber, isObject, isOdd, isPhone, isPlainObject, isPositiveNumber, isRectanglesOverlap, isSet, isStandardDate, isString, isStringNumber, isSymbol, isUndefined, isValidDate, isWeakMap, isWeakSet, jsonp, lazyLoadImage, localStore, matchFieldsByIndex, mergeTwoArray, paddingEnd, paddingStart, parseStringToJSON, parseToNumber, parseURLParameter, permutations, phoneRegexp, pipeAsyncFunctions, promisify, randomColor, randomNumber, randomString, replaceClassName, replaceWords, sessionStore, stringNumberRegexp, timeToSeconds, transformListToObject, trim, trimLeft, trimRight, union, uniqueElementsBy };
+export { $selector, AjaxError, DateTypeEnum, MONTH_DAYS, MONTH_NUMBER, MonthEngToNum, WeekEngToNum, addClassName, addDateTime, ajax, arrayElementsMaxTimes, arrayElementsTimes, arrayify, breakDateTime, buildURL, calculateArrayAverage, calculateArrayMaxValue, calculateArrayMinValue, capitalize, convertObjToURLString, convertUTCToLocal, copyToClipboard, createError, deepClone, deepGet, deleteClassName, diffDateTime, differenceSet, downloadText, emailRegexp, encodeUrl, findDuplicateElements, formatDate, formatDateTime, formatDateToArray, formatDateToCn, formatTime, formatTimeToArray, formatTimeToCn, frontEndSwitchPage, generateImageDom, hasClassName, intDiv, intDivCeil, intersection, isArray, isBaseType, isBoolean, isBrowser, isDate, isEmail, isEmptyArray, isEmptyObject, isError, isEven, isFunction, isHTMLElement, isInt, isLeapYear, isMap, isNaN, isNegativeNumber, isNode, isNull, isNumber, isObject, isOdd, isPhone, isPlainObject, isPositiveNumber, isRectanglesOverlap, isSet, isStandardDate, isString, isStringNumber, isSymbol, isUndefined, isValidDate, isWeakMap, isWeakSet, jsonp, lazyLoadImage, localStore, matchFieldsByIndex, mergeTwoArray, paddingEnd, paddingStart, pageBottomVisible, parseStringToJSON, parseToNumber, parseURLParameter, permutations, phoneRegexp, pipeAsyncFunctions, promisify, randomColor, randomNumber, randomString, replaceClassName, replaceWords, sessionStore, stringNumberRegexp, timeToSeconds, transformListToObject, trim, trimLeft, trimRight, union, uniqueElementsBy };

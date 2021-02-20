@@ -8,6 +8,7 @@ export * from './hasClassName';
 export * from './jsonp';
 export * from './lazyLoadImage';
 export * from './localStore';
+export * from './pageBottomVisible';
 export * from './replaceClassName';
 export * from './selector';
 export * from './sessionStore';

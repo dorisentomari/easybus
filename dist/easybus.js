@@ -1107,6 +1107,11 @@ else {
     throw new Error('localStorage: 只能在浏览器端使用');
 }
 
+function pageBottomVisible() {
+    return (document.documentElement.clientHeight + window.scrollY >=
+        (document.documentElement.scrollHeight || document.documentElement.clientHeight));
+}
+
 function replaceClassName(elem, newClassName, oldClassName) {
     deleteClassName(elem, oldClassName);
     addClassName(elem, newClassName);
@@ -1528,6 +1533,7 @@ exports.matchFieldsByIndex = matchFieldsByIndex;
 exports.mergeTwoArray = mergeTwoArray;
 exports.paddingEnd = paddingEnd;
 exports.paddingStart = paddingStart;
+exports.pageBottomVisible = pageBottomVisible;
 exports.parseStringToJSON = parseStringToJSON;
 exports.parseToNumber = parseToNumber;
 exports.parseURLParameter = parseURLParameter;
