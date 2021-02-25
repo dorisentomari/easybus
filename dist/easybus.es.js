@@ -564,6 +564,12 @@ function differenceSet(arr1, arr2) {
     return Array.from(diff);
 }
 
+function foreach(obj, cb) {
+    Object.keys(obj).forEach(function (item, index) {
+        cb(item, obj[item], index, obj);
+    });
+}
+
 function findDuplicateElements(arr) {
     var result = [];
     if (arr.length === 0) {
@@ -798,6 +804,18 @@ function trim(val, isTrimLeft, isTrimRight) {
     return val;
 }
 
+function cutObjectExtraProperties(source, target) {
+    if (source === void 0) { source = {}; }
+    if (target === void 0) { target = {}; }
+    for (var key in target) {
+        if (target.hasOwnProperty(key)) {
+            if (!source.hasOwnProperty(key)) {
+                delete target[key];
+            }
+        }
+    }
+}
+
 function deepClone(obj) {
     if (isNull(obj) || isUndefined(obj)) {
         return obj;
@@ -839,6 +857,34 @@ function isRectanglesOverlap(rect1, rect2) {
     var r1 = rect1.x > rect2.x + rect2.width || rect1.y > rect2.y + rect2.height;
     var r2 = rect2.x > rect1.x + rect1.width || rect2.y > rect1.y + rect1.height;
     return !(r1 || r2);
+}
+
+// 注意 key 必须是唯一的值，类似于 id，如果 key 不唯一，则会发生覆盖，顺序获取到的值，后边的值覆盖前边的值
+function matchArrayFieldsToObject(fields, dataList, fn) {
+    var result = [];
+    for (var i = 0; i < dataList.length; i++) {
+        var data = dataList[i];
+        var obj = {};
+        for (var j = 0; j < fields.length; j++) {
+            var field = fields[j];
+            var value = data[j];
+            if (fn) {
+                var fnResult = fn(field, value);
+                var newField = fnResult.field;
+                var newValue = fnResult.value;
+                if (newField) {
+                    field = newField;
+                }
+                if (newValue) {
+                    value = newValue;
+                }
+            }
+            obj[field] = value;
+        }
+        result.push(obj);
+        obj = {};
+    }
+    return result;
 }
 
 function parseStringToJSON(data) {
@@ -1354,6 +1400,20 @@ function parseToNumber(value) {
     return parseInt(value, 10);
 }
 
+/**
+ * 计算复利 compound interest
+ * @params {baseValue} 本金
+ * @params {rate} 利率
+ * @params {times} 周期单位，年、月、日等
+ * */
+function power(baseValue, rate, times) {
+    times = parseInt(String(times), 10);
+    for (var i = 0; i < times; i++) {
+        baseValue *= rate;
+    }
+    return parseFloat(baseValue.toFixed(2));
+}
+
 function diffDateTime(startDate, endDate, mode) {
     if (mode === void 0) { mode = DateTypeEnum.DAYS; }
     startDate = new Date(startDate);
@@ -1448,4 +1508,4 @@ function randomString(maxLength) {
     return str;
 }
 
-export { $selector, AjaxError, DateTypeEnum, MONTH_DAYS, MONTH_NUMBER, MonthEngToNum, WeekEngToNum, addClassName, addDateTime, ajax, arrayElementsMaxTimes, arrayElementsTimes, arrayify, breakDateTime, buildURL, calculateArrayAverage, calculateArrayMaxValue, calculateArrayMinValue, capitalize, convertObjToURLString, convertUTCToLocal, copyToClipboard, createError, deepClone, deepGet, deleteClassName, diffDateTime, differenceSet, downloadText, emailRegexp, encodeUrl, findDuplicateElements, formatDate, formatDateTime, formatDateToArray, formatDateToCn, formatTime, formatTimeToArray, formatTimeToCn, frontEndSwitchPage, generateImageDom, hasClassName, intDiv, intDivCeil, intersection, isArray, isBaseType, isBoolean, isBrowser, isDate, isEmail, isEmptyArray, isEmptyObject, isError, isEven, isFunction, isHTMLElement, isInt, isLeapYear, isMap, isNaN, isNegativeNumber, isNode, isNull, isNumber, isObject, isOdd, isPhone, isPlainObject, isPositiveNumber, isRectanglesOverlap, isSet, isStandardDate, isString, isStringNumber, isSymbol, isUndefined, isValidDate, isWeakMap, isWeakSet, jsonp, lazyLoadImage, localStore, matchFieldsByIndex, mergeTwoArray, paddingEnd, paddingStart, pageBottomVisible, parseStringToJSON, parseToNumber, parseURLParameter, permutations, phoneRegexp, pipeAsyncFunctions, promisify, randomColor, randomNumber, randomString, replaceClassName, replaceWords, sessionStore, stringNumberRegexp, timeToSeconds, transformListToObject, trim, trimLeft, trimRight, union, uniqueElementsBy };
+export { $selector, AjaxError, DateTypeEnum, MONTH_DAYS, MONTH_NUMBER, MonthEngToNum, WeekEngToNum, addClassName, addDateTime, ajax, arrayElementsMaxTimes, arrayElementsTimes, arrayify, breakDateTime, buildURL, calculateArrayAverage, calculateArrayMaxValue, calculateArrayMinValue, capitalize, convertObjToURLString, convertUTCToLocal, copyToClipboard, createError, cutObjectExtraProperties, deepClone, deepGet, deleteClassName, diffDateTime, differenceSet, downloadText, emailRegexp, encodeUrl, findDuplicateElements, foreach, formatDate, formatDateTime, formatDateToArray, formatDateToCn, formatTime, formatTimeToArray, formatTimeToCn, frontEndSwitchPage, generateImageDom, hasClassName, intDiv, intDivCeil, intersection, isArray, isBaseType, isBoolean, isBrowser, isDate, isEmail, isEmptyArray, isEmptyObject, isError, isEven, isFunction, isHTMLElement, isInt, isLeapYear, isMap, isNaN, isNegativeNumber, isNode, isNull, isNumber, isObject, isOdd, isPhone, isPlainObject, isPositiveNumber, isRectanglesOverlap, isSet, isStandardDate, isString, isStringNumber, isSymbol, isUndefined, isValidDate, isWeakMap, isWeakSet, jsonp, lazyLoadImage, localStore, matchArrayFieldsToObject, matchFieldsByIndex, mergeTwoArray, paddingEnd, paddingStart, pageBottomVisible, parseStringToJSON, parseToNumber, parseURLParameter, permutations, phoneRegexp, pipeAsyncFunctions, power, promisify, randomColor, randomNumber, randomString, replaceClassName, replaceWords, sessionStore, stringNumberRegexp, timeToSeconds, transformListToObject, trim, trimLeft, trimRight, union, uniqueElementsBy };
