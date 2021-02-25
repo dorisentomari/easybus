@@ -6,6 +6,7 @@ import {
   calculateArrayMaxValue,
   calculateArrayMinValue,
   differenceSet,
+  foreach,
   findDuplicateElements,
   intersection,
   matchFieldsByIndex,
@@ -106,6 +107,13 @@ describe('测试 array', () => {
   test('测试 differenceSet', () => {
     expect(differenceSet([], [])).toEqual([]);
     expect(differenceSet([1, 2, 3], [3, 4, 5])).toEqual([1, 2]);
+  });
+
+  test('测试 foreach', () => {
+    expect(findDuplicateElements([])).toEqual([]);
+    expect(findDuplicateElements([1, 2, 3, 4, 5])).toEqual([]);
+    expect(findDuplicateElements([null, null, null])).toEqual([null]);
+    expect(findDuplicateElements([1, 2, 3, 3, 4, 5, 9, 4, 3])).toEqual([3, 4]);
   });
 
   test('测试 findDuplicateElements', () => {

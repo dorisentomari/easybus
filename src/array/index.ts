@@ -5,6 +5,7 @@ export * from './calculateArrayAverage';
 export * from './calculateArrayMaxValue';
 export * from './calculateArrayMinValue';
 export * from './differenceSet';
+export * from './foreach';
 export * from './findDuplicateElements';
 export * from './intersection';
 export * from './matchFieldsByIndex';

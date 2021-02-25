@@ -1,4 +1,4 @@
-import { intDivCeil, intDiv, isStringNumber, parseToNumber } from '../number';
+import { intDivCeil, intDiv, isStringNumber, parseToNumber, power } from '../number';
 
 describe('测试 number', () => {
   test('测试 intDivCeil', () => {
@@ -23,5 +23,10 @@ describe('测试 number', () => {
     expect(parseToNumber(199.01)).toEqual(199);
     expect(parseToNumber(199.05)).toEqual(199);
     expect(parseToNumber('199.05')).toEqual(199);
+  });
+
+  test('测试 power', () => {
+    expect(power(100, 1.1, 1)).toEqual(110);
+    expect(power(100, 1.1, 2)).toEqual(121);
   });
 });

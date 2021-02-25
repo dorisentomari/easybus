@@ -1,6 +1,13 @@
-import { transformListToObject, parseStringToJSON } from '../object';
+import { cutObjectExtraProperties, transformListToObject, parseStringToJSON } from '../object';
 
 describe('测试 object', () => {
+  test('测试 cutObjectExtraProperties', () => {
+    const str = '{"name": "jack", "age": 18}';
+    const errorStr = '"name": "jack", "age": 18}';
+    expect(parseStringToJSON(str)).toEqual({ name: 'jack', age: 18 });
+    expect(parseStringToJSON(errorStr)).toEqual(errorStr);
+  });
+
   test('测试 parseStringToJSON', () => {
     const str = '{"name": "jack", "age": 18}';
     const errorStr = '"name": "jack", "age": 18}';

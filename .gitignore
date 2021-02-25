@@ -36,3 +36,7 @@ lcov.info
 lcov-report
 clover.xml
 coverage-final.json
+
+
+/temp
+/tmp
