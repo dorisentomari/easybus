@@ -1,5 +1,5 @@
 import { isBrowser } from '../common';
-import { IStorage } from '../types/browser';
+import { IStorage } from '../types';
 
 export const sessionStore: IStorage = {};
 if (isBrowser()) {

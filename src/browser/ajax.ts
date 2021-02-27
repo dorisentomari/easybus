@@ -1,4 +1,4 @@
-import { AjaxPromise, AjaxRequestConfig, AjaxResponse, createError } from '../types/ajax';
+import { AjaxPromise, AjaxRequestConfig, AjaxResponse, createError } from '../types';
 import { isPlainObject } from '../common';
 import { buildURL } from '../string';
 import { parseStringToJSON } from '../object';

@@ -7,7 +7,7 @@ interface IRectanglesItem {
   height: number;
 }
 
-export function isRectanglesOverlap(rect1: IRectanglesItem, rect2: IRectanglesItem) {
+export function isRectanglesOverlap(rect1: IRectanglesItem, rect2: IRectanglesItem): boolean {
   if (!isObject(rect1) || !isObject(rect2) || isEmptyObject(rect1) || isEmptyObject(rect2)) {
     return false;
   }

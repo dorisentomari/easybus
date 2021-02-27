@@ -13,7 +13,7 @@ module.exports = {
     'quotes': ['warn', 'single'],
     'no-duplicate-imports': ['warn', {'includeExports': true}],
     'no-useless-rename': ['warn', {'ignoreImport': true}],
-    'prettier/prettier': ['error', {
+    'prettier/prettier': ['warn', {
       printWidth: 100,
       tabWidth: 2,
       useTabs: false,
@@ -21,6 +21,6 @@ module.exports = {
       semi: true,
       trailingComma: 'all',
       bracketSpacing: true,
-    }]
+    }],
   }
 };

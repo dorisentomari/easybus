@@ -110,10 +110,12 @@ describe('测试 array', () => {
   });
 
   test('测试 foreach', () => {
-    expect(findDuplicateElements([])).toEqual([]);
-    expect(findDuplicateElements([1, 2, 3, 4, 5])).toEqual([]);
-    expect(findDuplicateElements([null, null, null])).toEqual([null]);
-    expect(findDuplicateElements([1, 2, 3, 3, 4, 5, 9, 4, 3])).toEqual([3, 4]);
+    expect(foreach({ name: 'tom', home: 'Hongkong', 1: '1' }, (key, value, index, obj) => {})).toEqual(
+      undefined,
+    );
+      expect(foreach({}, (key, value, index, obj) => {})).toEqual(
+          undefined,
+      );
   });
 
   test('测试 findDuplicateElements', () => {

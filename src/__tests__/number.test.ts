@@ -1,4 +1,4 @@
-import { intDivCeil, intDiv, isStringNumber, parseToNumber, power } from '../number';
+import { intDivCeil, intDiv, isStringNumber, gcd, parseToNumber, power } from '../number';
 
 describe('测试 number', () => {
   test('测试 intDivCeil', () => {
@@ -16,6 +16,12 @@ describe('测试 number', () => {
     expect(isStringNumber('123x')).toEqual(false);
     expect(isStringNumber('jack')).toEqual(false);
     expect(isStringNumber(undefined)).toEqual(false);
+  });
+
+  test('测试 gcd', () => {
+    expect(gcd([32, 8])).toEqual(8);
+    expect(gcd([32, 8, 6])).toEqual(2);
+    expect(gcd([32, 8, 6, 2])).toEqual(2);
   });
 
   test('测试 parseToNumber', () => {

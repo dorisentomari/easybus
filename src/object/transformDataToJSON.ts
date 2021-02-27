@@ -1,4 +1,4 @@
-import { isString } from '../common/is';
+import { isString } from '../common';
 
 export function parseStringToJSON(data: any) {
   if (isString(data)) {

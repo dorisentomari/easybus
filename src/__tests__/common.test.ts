@@ -1,4 +1,4 @@
-import { frontEndSwitchPage } from '../common';
+import { frontEndSwitchPage, pipeAsyncFunctions } from '../common';
 
 describe('测试 common', () => {
   test('测试 frontEndSwitchPage', () => {
@@ -51,4 +51,27 @@ describe('测试 common', () => {
     expect(frontEndSwitchPage(arr, 4)).toEqual(page4);
     expect(frontEndSwitchPage(arr, 5)).toEqual([]);
   });
+  
+  test('测试 pipeAsyncFunctions', () => {
+    function fn1() {
+        return new Promise((resolve, reject) => {
+           return resolve(1);
+        });
+    }
+    
+      function fn2() {
+          return new Promise((resolve, reject) => {
+              return resolve(2);
+          });
+      }
+    
+      function fn3() {
+          return new Promise((resolve, reject) => {
+              return resolve(3);
+          });
+      }
+      
+      expect(pipeAsyncFunctions([fn1, fn2, fn3])).toEqual(3);
+  });
+  
 });
